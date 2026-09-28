@@ -318,7 +318,7 @@ img{display:block;max-width:100%}
 <div class="app">
   <header class="topbar">
     <div class="shell topbar-inner">
-      <a class="brand" href="index.html" aria-label="ONeness Home">
+      <a class="brand" href="retailer-dashboard.html" aria-label="ONeness Home">
         <div class="logo">O</div>
         <div class="brand-text"><strong>ONeness</strong><small>Wholesale marketplace</small></div>
       </a>
@@ -430,7 +430,7 @@ img{display:block;max-width:100%}
   </main>
 
   <nav class="bottom-nav" aria-label="Primary navigation">
-    <a class="nav-item active" href="index.html">
+    <a class="nav-item active" href="retailer-dashboard.html">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"></path></svg>
       <span>Home</span>
     </a>
@@ -460,7 +460,7 @@ const CONFIG={
   supabaseUrl:'https://djnpsgtlzgebmjtxfpei.supabase.co',
   publishableKey:'sb_publishable_97Gyvl_3GC_4irWpbIg0uA_SXDXeWb6',
   retailerApi:'https://djnpsgtlzgebmjtxfpei.supabase.co/functions/v1/retailer',
-  loginPage:'retailer-login.html'
+  loginPage:'index.html'
 };
 
 const PREVIEW=new URLSearchParams(location.search).get('preview')==='1';
@@ -569,7 +569,7 @@ async function boot(){
 
   const {data:{user},error}=await db.auth.getUser();
   if(error||!user){
-    location.replace(CONFIG.loginPage+'?next='+encodeURIComponent('index.html'));
+    location.replace(CONFIG.loginPage+'?next='+encodeURIComponent('retailer-dashboard.html'));
     return;
   }
   state.user=user;
@@ -580,7 +580,7 @@ async function boot(){
   }catch(e){
     if(['LOGIN_REQUIRED','NOT_RETAILER','RETAILER_BLOCKED','RETAILER_NOT_FOUND'].includes(e.code)||e.status===401){
       try{await db.auth.signOut({scope:'local'})}catch{}
-      location.replace(CONFIG.loginPage+'?next='+encodeURIComponent('index.html'));
+      location.replace(CONFIG.loginPage+'?next='+encodeURIComponent('retailer-dashboard.html'));
       return;
     }
     renderBackendPending(e);
@@ -747,7 +747,7 @@ function renderBackendPending(e){
   $('businessLabel').textContent='Account →';
   $('bestMarginProducts').innerHTML=`<div class="error-box" style="min-width:100%"><strong>Retailer backend is not connected yet</strong>The Home UI is ready, but the retailer-only API still needs to be installed on newapp03.<br><button class="retry" id="previewDesign">Preview this design</button></div>`;
   for(const id of ['frequentSection','bulkSection','trendingSection','newSection','productsSection'])$(id).hidden=true;
-  $('previewDesign').onclick=()=>location.href='index.html?preview=1';
+  $('previewDesign').onclick=()=>location.href='retailer-dashboard.html?preview=1';
   console.warn(e);
 }
 
