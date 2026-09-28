@@ -3,779 +3,664 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f7f7f2">
-<meta name="referrer" content="strict-origin-when-cross-origin">
-<title>ONeness · Wholesale Home</title>
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<meta name="theme-color" content="#f5f6f1">
+<title>ONeness · Retailer Account</title>
 <style>
 :root{
-  --bg:#f6f7f2;
-  --surface:#ffffff;
+  --bg:#f5f6f1;
+  --surface:#fff;
   --ink:#12241f;
-  --muted:#718078;
+  --muted:#748079;
   --green:#17634c;
-  --green-2:#0e4e3b;
-  --green-soft:#e7f2e8;
+  --green-dark:#0f4d3b;
+  --green-soft:#e9f3eb;
   --lime:#dff2a8;
-  --orange:#f2ad67;
-  --orange-soft:#fff1df;
-  --line:#e3e9e3;
-  --danger:#b44232;
-  --shadow:0 12px 35px rgba(25,57,44,.08);
-  --radius:20px;
-  --nav-h:76px;
+  --orange:#f1aa62;
+  --orange-soft:#fff0df;
+  --line:#e2e8e2;
+  --danger:#b43f32;
+  --danger-soft:#fff0ed;
+  --shadow:0 20px 60px rgba(22,55,43,.10);
+  --r:22px;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{min-height:100%;background:var(--bg)}
 body{
-  margin:0;
-  background:var(--bg);
-  color:var(--ink);
+  margin:0;min-height:100vh;background:var(--bg);color:var(--ink);
   font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   -webkit-font-smoothing:antialiased;
 }
 button,input{font:inherit}
 button{cursor:pointer}
 a{text-decoration:none;color:inherit}
-img{display:block;max-width:100%}
 [hidden]{display:none!important}
+.shell{width:min(1160px,100%);margin:auto}
+.auth-layout{
+  min-height:100vh;display:grid;grid-template-columns:1fr;padding:18px;
+}
+.auth-visual{
+  display:none;position:relative;overflow:hidden;border-radius:30px;
+  background:linear-gradient(145deg,#123c30,#17634c 58%,#2d7760);
+  color:white;padding:46px;
+}
+.auth-visual:before,.auth-visual:after{
+  content:"";position:absolute;border-radius:50%;pointer-events:none
+}
+.auth-visual:before{width:340px;height:340px;right:-130px;top:-110px;background:rgba(223,242,168,.16)}
+.auth-visual:after{width:250px;height:250px;left:-80px;bottom:-100px;background:rgba(241,170,98,.14)}
+.visual-inner{position:relative;z-index:2;display:flex;flex-direction:column;height:100%}
+.brand{display:flex;align-items:center;gap:11px;font-weight:900;letter-spacing:-.5px}
+.brand-mark{
+  width:44px;height:44px;border-radius:15px;display:grid;place-items:center;
+  color:#18372d;background:var(--lime);font-size:21px;font-weight:950
+}
+.visual-main{margin:auto 0;max-width:570px}
+.kicker{text-transform:uppercase;letter-spacing:2px;font-size:10px;font-weight:900;color:#cce1d7}
+.visual-main h1{font-size:clamp(38px,5vw,66px);line-height:.98;letter-spacing:-3px;margin:12px 0 18px}
+.visual-main p{font-size:15px;color:#d6e5dd;line-height:1.6;max-width:480px}
+.visual-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:30px}
+.visual-stat{border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.08);padding:14px;border-radius:16px}
+.visual-stat strong{display:block;font-size:18px}
+.visual-stat span{font-size:10px;color:#c9dbd3}
+.visual-note{font-size:10px;color:#bad2c6;margin-top:auto}
 
-.app{
-  min-height:100vh;
-  padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom) + 22px);
+.auth-side{display:flex;align-items:center;justify-content:center;padding:8px}
+.auth-card{width:min(470px,100%);background:white;border:1px solid var(--line);border-radius:27px;padding:24px;box-shadow:var(--shadow)}
+.mobile-brand{display:flex;align-items:center;gap:10px;margin-bottom:27px}
+.mobile-brand .brand-mark{background:var(--green);color:white}
+.mobile-brand div:last-child strong{display:block;font-size:16px}
+.mobile-brand div:last-child span{display:block;font-size:10px;color:var(--muted);margin-top:2px}
+.eyebrow{font-size:10px;letter-spacing:1.7px;text-transform:uppercase;font-weight:900;color:var(--green)}
+.auth-card h2{font-size:29px;letter-spacing:-1.2px;margin:7px 0 7px}
+.auth-card .lead{margin:0 0 22px;color:var(--muted);font-size:12px;line-height:1.55}
+.tabs{display:grid;grid-template-columns:1fr 1fr;background:#f1f3ee;border-radius:13px;padding:4px;margin-bottom:20px}
+.tab{height:39px;border:0;background:transparent;border-radius:10px;color:#6f7b74;font-size:11px;font-weight:850}
+.tab.active{background:white;color:var(--ink);box-shadow:0 3px 10px rgba(0,0,0,.05)}
+.form{display:grid;gap:13px}
+.label{display:grid;gap:6px;font-size:10px;font-weight:850;color:#526058}
+.input-wrap{position:relative}
+.input{
+  width:100%;height:48px;border:1px solid var(--line);border-radius:13px;background:#fff;
+  padding:0 13px;outline:none;color:var(--ink);transition:.18s
 }
-.shell{width:min(1220px,100%);margin:auto}
-.topbar{
-  position:sticky;top:0;z-index:40;
-  backdrop-filter:blur(18px);
-  background:rgba(246,247,242,.91);
-  border-bottom:1px solid rgba(227,233,227,.85);
+.input:focus{border-color:#94b5a5;box-shadow:0 0 0 4px rgba(23,99,76,.08)}
+.input::placeholder{color:#adb5b0}
+.password-input{padding-right:48px}
+.eye{
+  position:absolute;right:6px;top:6px;width:36px;height:36px;border:0;border-radius:10px;background:#f2f4f0;color:#67746d
 }
-.topbar-inner{
-  display:grid;
-  grid-template-columns:auto minmax(0,1fr) auto;
-  align-items:center;
-  gap:14px;
-  min-height:72px;
-  padding:10px 18px;
+.row-2{display:grid;grid-template-columns:1fr;gap:13px}
+.primary{
+  width:100%;height:49px;border:0;border-radius:13px;background:var(--green);color:#fff;
+  font-size:12px;font-weight:900;transition:.18s;box-shadow:0 9px 20px rgba(23,99,76,.16)
 }
-.brand{display:flex;align-items:center;gap:10px;min-width:0}
-.logo{
-  width:42px;height:42px;border-radius:14px;
-  background:var(--green);color:white;
-  display:grid;place-items:center;font-weight:900;font-size:21px;
-  box-shadow:inset 0 -5px 12px rgba(0,0,0,.08);
+.primary:hover{background:var(--green-dark)}
+.primary:disabled,.secondary:disabled{opacity:.55;cursor:not-allowed}
+.secondary{
+  width:100%;height:46px;border:1px solid var(--line);border-radius:13px;background:white;color:var(--ink);
+  font-size:11px;font-weight:850
 }
-.brand-text{display:none}
-.brand-text strong{display:block;font-size:16px;letter-spacing:-.3px}
-.brand-text small{display:block;color:var(--muted);font-size:11px;margin-top:1px}
-.search{
-  position:relative;max-width:620px;width:100%;justify-self:center;
+.text-btn{border:0;background:transparent;padding:2px;color:var(--green);font-size:11px;font-weight:850}
+.auth-links{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:13px}
+.notice{padding:11px 12px;border-radius:12px;background:var(--green-soft);color:#2d5c4a;font-size:10px;line-height:1.5}
+.notice.error{background:var(--danger-soft);color:var(--danger)}
+.secure{display:flex;gap:8px;align-items:flex-start;margin-top:18px;padding-top:16px;border-top:1px solid var(--line);color:#7c8881;font-size:9px;line-height:1.55}
+.otp-input{
+  width:100%;height:62px;border:1px solid var(--line);border-radius:15px;text-align:center;
+  font-size:26px;letter-spacing:.35em;font-weight:800;outline:none
 }
-.search input{
-  width:100%;height:46px;border:1px solid var(--line);border-radius:15px;
-  background:white;padding:0 44px 0 44px;color:var(--ink);outline:0;
-  transition:.2s;border-color:.2s;box-shadow:.2s;
-}
-.search input:focus{border-color:#9ab9aa;box-shadow:0 0 0 4px rgba(23,99,76,.08)}
-.search svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:#728078}
-.search-clear{
-  position:absolute;right:8px;top:8px;width:30px;height:30px;border:0;border-radius:10px;
-  background:#f1f4ef;color:#64716a;display:grid;place-items:center
-}
-.top-actions{display:flex;align-items:center;gap:8px}
-.icon-btn{
-  position:relative;width:42px;height:42px;border:1px solid var(--line);border-radius:14px;
-  background:white;display:grid;place-items:center;color:var(--ink)
-}
-.icon-btn:hover{border-color:#aac0b5}
-.badge-count{
-  position:absolute;right:-4px;top:-5px;min-width:19px;height:19px;padding:0 5px;
-  display:grid;place-items:center;border-radius:999px;background:var(--orange);
-  color:#2c1b0c;font-size:10px;font-weight:900;border:2px solid var(--bg)
-}
-
-.main{padding:18px 16px 28px}
-.greeting{display:flex;justify-content:space-between;align-items:end;gap:14px;margin:4px 2px 18px}
-.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:1.7px;color:var(--green);font-weight:850}
-.greeting h1{font-size:clamp(24px,4.6vw,38px);line-height:1.08;letter-spacing:-1.2px;margin:5px 0 6px}
-.greeting p{margin:0;color:var(--muted);font-size:13px}
-.mini-account{
-  border:1px solid var(--line);background:white;border-radius:16px;padding:9px 12px;
-  font-size:12px;font-weight:750;white-space:nowrap
-}
-
-.profit-card{
-  position:relative;overflow:hidden;
-  background:linear-gradient(135deg,#143d31 0%,#17634c 60%,#327761 100%);
-  color:white;border-radius:26px;padding:22px;box-shadow:var(--shadow);margin-bottom:18px
-}
-.profit-card:after{
-  content:"";position:absolute;width:230px;height:230px;border-radius:50%;
-  right:-95px;top:-80px;background:rgba(223,242,168,.15)
-}
-.profit-card:before{
-  content:"";position:absolute;width:130px;height:130px;border-radius:50%;
-  right:80px;bottom:-92px;background:rgba(242,173,103,.18)
-}
-.profit-top,.profit-grid,.profit-bottom{position:relative;z-index:2}
-.profit-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
-.profit-label{display:flex;align-items:center;gap:8px;color:#d7e6de;font-size:12px;font-weight:700}
-.live-pill{padding:4px 8px;border-radius:999px;background:rgba(255,255,255,.12);font-size:10px}
-.profit-main{font-size:clamp(37px,8vw,60px);line-height:1;letter-spacing:-2.4px;font-weight:900;margin:14px 0 8px}
-.profit-sub{font-size:12px;color:#cee0d7}
-.compare{
-  padding:7px 10px;border-radius:12px;background:rgba(223,242,168,.14);color:#e5f8b1;
-  font-size:11px;font-weight:800;white-space:nowrap
-}
-.profit-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:20px
-}
-.metric{
-  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08);
-  border-radius:16px;padding:12px
-}
-.metric span{display:block;color:#c8ddd3;font-size:10px}
-.metric strong{display:block;margin-top:4px;font-size:15px}
-.profit-bottom{
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
-  margin-top:16px;padding-top:15px;border-top:1px solid rgba(255,255,255,.12)
-}
-.progress-copy{font-size:11px;color:#d7e6de}
-.progress-copy b{color:white}
-.cta{
-  border:0;border-radius:13px;background:var(--lime);color:#183329;
-  min-height:40px;padding:0 13px;font-weight:850;font-size:12px;white-space:nowrap
+.otp-input:focus{border-color:#94b5a5;box-shadow:0 0 0 4px rgba(23,99,76,.08)}
+.otp-mail{padding:12px;border-radius:12px;background:#f4f6f1;font-size:11px;color:#526058;margin-bottom:14px}
+.timer{text-align:center;font-size:10px;color:var(--muted);margin:10px 0}
+.success-check{
+  width:62px;height:62px;border-radius:50%;background:var(--green-soft);color:var(--green);
+  display:grid;place-items:center;font-size:28px;margin:0 auto 14px;font-weight:900
 }
 
-.category-strip{
-  display:flex;gap:9px;overflow:auto;padding:2px 0 6px;scrollbar-width:none;margin-bottom:20px
+/* account state */
+.account-app{min-height:100vh;padding-bottom:90px}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(245,246,241,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(226,232,226,.86)}
+.topbar-inner{height:68px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.account-brand{display:flex;align-items:center;gap:9px;font-weight:900}
+.account-brand .brand-mark{width:38px;height:38px;border-radius:13px;background:var(--green);color:white;font-size:18px}
+.shop-btn{border:0;border-radius:12px;background:var(--green);color:white;padding:10px 13px;font-size:10px;font-weight:900}
+.account-main{padding:19px 15px 32px}
+.profile-hero{
+  background:linear-gradient(135deg,#143e32,#17634c 67%,#317a61);color:white;
+  border-radius:25px;padding:22px;position:relative;overflow:hidden;box-shadow:var(--shadow)
 }
-.category-strip::-webkit-scrollbar{display:none}
-.category{
-  flex:0 0 auto;border:1px solid var(--line);background:white;color:#53625b;
-  border-radius:999px;padding:10px 15px;font-size:12px;font-weight:750
-}
-.category.active{background:var(--ink);color:white;border-color:var(--ink)}
+.profile-hero:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;right:-70px;top:-65px;background:rgba(223,242,168,.14)}
+.profile-main{display:flex;align-items:center;gap:14px;position:relative;z-index:2}
+.avatar{width:58px;height:58px;border-radius:18px;background:var(--lime);color:#163c30;display:grid;place-items:center;font-size:22px;font-weight:950}
+.profile-main h1{margin:0;font-size:22px;letter-spacing:-.8px}
+.profile-main p{margin:3px 0 0;font-size:11px;color:#d0e1d8}
+.status{display:inline-flex;align-items:center;gap:5px;margin-top:8px;padding:5px 8px;border-radius:999px;background:rgba(255,255,255,.12);font-size:9px;font-weight:850;color:#e3f2ea}
+.hero-info{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px}
+.hero-info div{padding:11px;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.07)}
+.hero-info span{display:block;font-size:9px;color:#c9ddd3}
+.hero-info strong{display:block;font-size:11px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-.promo{
-  min-height:156px;border-radius:24px;padding:22px;position:relative;overflow:hidden;
-  background:#efe7d7;margin-bottom:26px;display:flex;align-items:center
+.quick-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0 24px}
+.quick{
+  background:white;border:1px solid var(--line);border-radius:17px;padding:15px;min-height:100px;
+  display:flex;flex-direction:column;justify-content:space-between
 }
-.promo-copy{position:relative;z-index:2;max-width:66%}
-.promo .tag{font-size:10px;font-weight:900;letter-spacing:1.3px;color:#7b5c35;text-transform:uppercase}
-.promo h2{font-size:24px;line-height:1.06;letter-spacing:-1px;margin:7px 0}
-.promo p{font-size:12px;color:#6c624f;margin:0 0 13px}
-.promo button{border:0;background:#1b342c;color:white;border-radius:12px;padding:9px 13px;font-weight:800;font-size:11px}
-.promo-art{
-  position:absolute;right:-10px;bottom:-10px;width:145px;height:145px;border-radius:42px 42px 18px 42px;
-  background:linear-gradient(145deg,#f1b872,#e9974a);transform:rotate(-8deg);
-  display:grid;place-items:center;font-size:62px
-}
-.promo-art:after{
-  content:"";position:absolute;width:80px;height:80px;border-radius:50%;background:#dff2a8;right:-20px;top:-15px;z-index:-1
-}
-
-.section{margin:0 0 28px}
-.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:12px}
-.section-title h2{font-size:19px;letter-spacing:-.6px;margin:0}
-.section-title p{color:var(--muted);font-size:11px;margin:3px 0 0}
-.see-all{border:0;background:transparent;color:var(--green);font-weight:800;font-size:11px;padding:6px}
-
-.h-scroll{display:flex;gap:12px;overflow:auto;padding:1px 1px 8px;scrollbar-width:none}
-.h-scroll::-webkit-scrollbar{display:none}
-.product-card{
-  flex:0 0 176px;background:white;border:1px solid var(--line);border-radius:18px;overflow:hidden;
-  position:relative;transition:transform .18s,box-shadow .18s
-}
-.product-card:active{transform:scale(.985)}
-.product-image{
-  height:150px;background:#f1f3ed;position:relative;display:grid;place-items:center;overflow:hidden
-}
-.product-image img{width:100%;height:100%;object-fit:contain;background:white}
-.placeholder{font-size:42px;color:#9eaaa2}
-.margin-pill{
-  position:absolute;left:8px;top:8px;padding:5px 8px;border-radius:999px;background:#173b32;color:white;
-  font-size:9px;font-weight:850;letter-spacing:.2px
-}
-.stock-pill{
-  position:absolute;right:8px;top:8px;padding:5px 7px;border-radius:999px;background:white;border:1px solid var(--line);
-  font-size:9px;font-weight:800;color:#596861
-}
-.product-body{padding:12px}
-.product-cat{font-size:9px;color:#88938d;font-weight:750;text-transform:uppercase;letter-spacing:.7px}
-.product-title{font-size:13px;font-weight:850;line-height:1.28;margin:4px 0 8px;min-height:33px}
-.price-row{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
-.price{font-size:18px;font-weight:900;color:var(--green)}
-.mrp{font-size:10px;color:#8a958f;text-decoration:line-through}
-.save{font-size:10px;color:#b66c27;font-weight:800;margin-top:2px}
-.meta{font-size:10px;color:#77857e;margin-top:7px}
-.product-actions{display:flex;align-items:center;justify-content:space-between;gap:7px;margin-top:10px}
-.add-btn{
-  flex:1;border:0;border-radius:11px;background:var(--green);color:white;height:36px;font-size:11px;font-weight:850
-}
-.detail-btn{
-  width:36px;height:36px;border:1px solid var(--line);background:white;border-radius:11px;display:grid;place-items:center
-}
-.stepper{display:grid;grid-template-columns:34px 1fr 34px;align-items:center;width:100%;border:1px solid #b9d0c3;border-radius:11px;overflow:hidden;height:36px}
-.stepper button{height:100%;border:0;background:#edf5ed;color:var(--green);font-weight:900}
-.stepper strong{text-align:center;font-size:11px}
-
-.bulk-card{
-  flex:0 0 250px;background:#fff7e9;border:1px solid #f0dfc3;border-radius:18px;padding:15px
-}
-.bulk-top{display:flex;gap:11px;align-items:center}
-.bulk-icon{width:48px;height:48px;border-radius:14px;background:#f6c98e;display:grid;place-items:center;font-size:23px}
-.bulk-name{font-size:13px;font-weight:850}
-.bulk-sub{font-size:10px;color:#87735b;margin-top:2px}
-.bulk-deal{margin-top:12px;padding:10px;border-radius:13px;background:white}
-.bulk-deal strong{display:block;color:#8a541f;font-size:15px}
-.bulk-deal span{font-size:10px;color:#8c7a66}
-.bulk-card button{width:100%;margin-top:10px;height:36px;border:0;border-radius:11px;background:#3f3021;color:white;font-weight:800;font-size:11px}
-
-.reorder-card{
-  display:grid;grid-template-columns:58px minmax(0,1fr) auto;align-items:center;gap:12px;
-  background:white;border:1px solid var(--line);border-radius:17px;padding:11px;margin-bottom:9px
-}
-.reorder-img{width:58px;height:58px;border-radius:13px;background:#eef1ea;overflow:hidden;display:grid;place-items:center}
-.reorder-img img{width:100%;height:100%;object-fit:contain;background:white}
-.reorder-name{font-size:12px;font-weight:850}
-.reorder-meta{font-size:10px;color:var(--muted);margin-top:3px}
-.reorder-btn{border:1px solid #aac4b7;background:#eff6ef;color:var(--green);border-radius:11px;padding:8px 10px;font-size:10px;font-weight:850}
-
-.skeleton{background:linear-gradient(90deg,#edf0e9 25%,#f7f8f4 37%,#edf0e9 63%);background-size:400% 100%;animation:shimmer 1.4s infinite;border-radius:12px}
-@keyframes shimmer{0%{background-position:100% 0}100%{background-position:0 0}}
-.error-box,.empty-box{
-  background:white;border:1px solid var(--line);border-radius:18px;padding:24px;text-align:center;color:var(--muted)
-}
-.error-box strong,.empty-box strong{display:block;color:var(--ink);margin-bottom:6px}
-.retry{margin-top:12px;border:0;border-radius:12px;background:var(--ink);color:white;padding:10px 14px;font-weight:800}
-
+.quick-icon{width:35px;height:35px;border-radius:11px;background:var(--green-soft);display:grid;place-items:center;font-size:16px}
+.quick strong{font-size:12px}
+.quick span{font-size:9px;color:var(--muted)}
+.section{margin:0 0 20px}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.section-head h2{font-size:16px;margin:0;letter-spacing:-.4px}
+.card{background:white;border:1px solid var(--line);border-radius:19px;overflow:hidden}
+.menu-row{display:flex;align-items:center;gap:12px;padding:14px 15px;border-bottom:1px solid #edf0ec}
+.menu-row:last-child{border-bottom:0}
+.menu-icon{width:38px;height:38px;border-radius:12px;background:#f1f4ef;display:grid;place-items:center}
+.menu-copy{flex:1;min-width:0}
+.menu-copy strong{display:block;font-size:11px}
+.menu-copy span{display:block;font-size:9px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chev{color:#9aa59f}
+.edit-form{padding:15px;display:grid;gap:12px}
+.danger-btn{width:100%;height:46px;border:1px solid #f0c7c1;border-radius:13px;background:#fff8f7;color:var(--danger);font-size:11px;font-weight:900}
 .bottom-nav{
-  position:fixed;z-index:50;left:50%;bottom:0;transform:translateX(-50%);
-  width:min(720px,100%);height:calc(var(--nav-h) + env(safe-area-inset-bottom));
-  padding:7px 12px calc(7px + env(safe-area-inset-bottom));
-  background:rgba(255,255,255,.96);backdrop-filter:blur(18px);
-  border:1px solid var(--line);border-bottom:0;border-radius:22px 22px 0 0;
-  display:grid;grid-template-columns:repeat(4,1fr);box-shadow:0 -10px 40px rgba(18,36,31,.06)
+  position:fixed;z-index:40;left:50%;bottom:0;transform:translateX(-50%);
+  width:min(700px,100%);height:76px;padding:7px 11px calc(7px + env(safe-area-inset-bottom));
+  background:rgba(255,255,255,.96);backdrop-filter:blur(18px);border:1px solid var(--line);border-bottom:0;
+  border-radius:21px 21px 0 0;display:grid;grid-template-columns:repeat(4,1fr)
 }
-.nav-item{
-  border:0;background:transparent;border-radius:14px;color:#849089;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:3px;font-size:9px;font-weight:800;position:relative
-}
-.nav-item svg{width:21px;height:21px}
-.nav-item.active{color:var(--green);background:#eff6ef}
-.nav-badge{
-  position:absolute;top:5px;left:calc(50% + 6px);background:var(--orange);color:#2c1a0b;
-  min-width:17px;height:17px;border-radius:999px;font-size:9px;display:grid;place-items:center;padding:0 4px
-}
-
+.nav{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#89938e;font-size:9px;font-weight:800}
+.nav-icon{font-size:18px}
+.nav.active{background:var(--green-soft);color:var(--green);border-radius:13px}
 .toast{
-  position:fixed;z-index:90;left:50%;bottom:calc(var(--nav-h) + 18px + env(safe-area-inset-bottom));
-  transform:translate(-50%,20px);opacity:0;pointer-events:none;
-  background:#142d25;color:white;border-radius:13px;padding:11px 15px;font-size:11px;
-  box-shadow:0 10px 30px rgba(0,0,0,.2);transition:.22s;max-width:88vw
+  position:fixed;z-index:80;left:50%;bottom:92px;transform:translate(-50%,15px);opacity:0;
+  max-width:88vw;background:#17382e;color:white;padding:11px 14px;border-radius:12px;font-size:10px;
+  transition:.2s;pointer-events:none;box-shadow:0 10px 30px rgba(0,0,0,.15)
 }
 .toast.show{opacity:1;transform:translate(-50%,0)}
+.loading-screen{min-height:100vh;display:grid;place-items:center;padding:20px}
+.loader-card{text-align:center;color:var(--muted);font-size:11px}
+.spinner{width:34px;height:34px;border-radius:50%;border:3px solid #dce5dd;border-top-color:var(--green);animation:spin .75s linear infinite;margin:0 auto 12px}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-.search-results{
-  position:absolute;top:52px;left:0;right:0;background:white;border:1px solid var(--line);border-radius:15px;
-  box-shadow:var(--shadow);padding:7px;max-height:330px;overflow:auto;z-index:60
+@media(min-width:540px){
+  .auth-card{padding:32px}
+  .row-2{grid-template-columns:1fr 1fr}
+  .quick-grid{grid-template-columns:repeat(4,1fr)}
 }
-.search-result{display:flex;gap:10px;align-items:center;padding:9px;border-radius:11px}
-.search-result:hover{background:#f5f7f2}
-.search-result img,.search-result .sr-img{width:42px;height:42px;border-radius:10px;object-fit:contain;background:#f1f3ee}
-.search-result strong{display:block;font-size:11px}
-.search-result span{font-size:10px;color:var(--muted)}
-
-@media(min-width:640px){
-  .brand-text{display:block}
-  .main{padding:24px 24px 36px}
-  .profit-card{padding:28px}
-  .product-card{flex-basis:205px}
-  .product-image{height:175px}
-  .promo{min-height:180px;padding:28px}
-  .promo-copy{max-width:60%}
-}
-@media(min-width:900px){
-  .topbar-inner{padding:12px 28px}
-  .main{padding:30px 28px 60px}
-  .profit-card{display:grid;grid-template-columns:1.05fr 1fr;column-gap:30px}
-  .profit-top{grid-column:1/2;display:block}
-  .profit-grid{grid-column:2/3;grid-row:1/2;margin-top:0;align-self:center}
-  .profit-bottom{grid-column:1/-1}
-  .h-scroll{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));overflow:visible}
-  .product-card{min-width:0;width:100%}
-  .bulk-row{display:grid;grid-template-columns:repeat(4,1fr);overflow:visible}
-  .bulk-card{min-width:0}
-  .bottom-nav{width:520px;bottom:14px;border-radius:22px;border-bottom:1px solid var(--line)}
-  .app{padding-bottom:112px}
+@media(min-width:860px){
+  .auth-layout{grid-template-columns:1.06fr .94fr;gap:16px;padding:16px}
+  .auth-visual{display:block}
+  .auth-side{padding:20px}
+  .account-main{padding:28px 24px 42px}
+  .topbar-inner{padding:0 24px}
+  .hero-info{grid-template-columns:repeat(4,1fr)}
+  .bottom-nav{bottom:13px;border-radius:21px;border-bottom:1px solid var(--line)}
+  .account-app{padding-bottom:110px}
   .toast{bottom:108px}
 }
 </style>
 </head>
 <body>
-<div class="app">
+
+<div id="loadingScreen" class="loading-screen">
+  <div class="loader-card"><div class="spinner"></div>Opening your ONeness account…</div>
+</div>
+
+<div id="authView" hidden>
+  <div class="auth-layout">
+    <aside class="auth-visual">
+      <div class="visual-inner">
+        <div class="brand"><div class="brand-mark">O</div><span>ONeness</span></div>
+        <div class="visual-main">
+          <div class="kicker">Retailer wholesale account</div>
+          <h1>Buy wholesale.<br>Grow every margin.</h1>
+          <p>One account for wholesale products, bulk pricing, orders and your potential retail earnings.</p>
+          <div class="visual-stats">
+            <div class="visual-stat"><strong>Bulk</strong><span>Quantity-based wholesale pricing</span></div>
+            <div class="visual-stat"><strong>MRP</strong><span>See retail value before buying</span></div>
+            <div class="visual-stat"><strong>Margin</strong><span>Track potential earnings</span></div>
+          </div>
+        </div>
+        <div class="visual-note">Secure retailer access · Email verification required</div>
+      </div>
+    </aside>
+
+    <section class="auth-side">
+      <div class="auth-card">
+        <div class="mobile-brand">
+          <div class="brand-mark">O</div>
+          <div><strong>ONeness</strong><span>Retailer wholesale account</span></div>
+        </div>
+        <div id="authContent"></div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div id="accountView" class="account-app" hidden>
   <header class="topbar">
     <div class="shell topbar-inner">
-      <a class="brand" href="retailer-dashboard.html" aria-label="ONeness Home">
-        <div class="logo">O</div>
-        <div class="brand-text"><strong>ONeness</strong><small>Wholesale marketplace</small></div>
-      </a>
-      <div class="search">
-        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
-        <input id="searchInput" type="search" autocomplete="off" placeholder="Search products, brands or categories">
-        <button id="searchClear" class="search-clear" aria-label="Clear search" hidden>×</button>
-        <div id="searchResults" class="search-results" hidden></div>
-      </div>
-      <div class="top-actions">
-        <button class="icon-btn" id="notificationBtn" aria-label="Notifications">
-          <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M10 21h4"></path></svg>
-        </button>
-        <button class="icon-btn" id="cartTopBtn" aria-label="Cart">
-          <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="20" r="1"></circle><circle cx="19" cy="20" r="1"></circle><path d="M3 4h2l2.5 11h11l2-8H7"></path></svg>
-          <span id="cartTopCount" class="badge-count" hidden>0</span>
-        </button>
-      </div>
+      <a class="account-brand" href="retailer-dashboard.html"><div class="brand-mark">O</div><span>ONeness</span></a>
+      <button class="shop-btn" onclick="location.href='retailer-dashboard.html'">Shop wholesale →</button>
     </div>
   </header>
 
-  <main class="shell main">
-    <section class="greeting">
-      <div>
-        <div class="eyebrow">Retailer home</div>
-        <h1 id="greetingTitle">Good afternoon 👋</h1>
-        <p id="greetingSub">Buy smarter. Grow the margin on every shelf.</p>
-      </div>
-      <a class="mini-account" href="account.html" id="businessLabel">My account →</a>
-    </section>
-
-    <section class="profit-card" aria-label="This month business summary">
-      <div class="profit-top">
+  <main class="shell account-main">
+    <section class="profile-hero">
+      <div class="profile-main">
+        <div class="avatar" id="avatarLetter">R</div>
         <div>
-          <div class="profit-label">Potential retail profit <span class="live-pill">THIS MONTH</span></div>
-          <div class="profit-main" id="monthProfit">₹0</div>
-          <div class="profit-sub" id="profitFormula">Retail value ₹0 − Wholesale cost ₹0</div>
+          <h1 id="accountName">Retailer</h1>
+          <p id="accountBusiness">Retailer account</p>
+          <span class="status" id="accountStatus">● Active retailer</span>
         </div>
-        <div class="compare" id="monthCompare">Start ordering to grow your margin</div>
       </div>
-      <div class="profit-grid">
-        <div class="metric"><span>Wholesale purchases</span><strong id="monthWholesale">₹0</strong></div>
-        <div class="metric"><span>MRP retail value</span><strong id="monthMrp">₹0</strong></div>
-        <div class="metric"><span>Potential margin</span><strong id="monthMargin">0%</strong></div>
-      </div>
-      <div class="profit-bottom">
-        <div class="progress-copy" id="profitProgress"><b>₹0</b> potential profit generated this month</div>
-        <button class="cta" id="increaseMargin">Increase this month’s margin →</button>
+      <div class="hero-info">
+        <div><span>Email</span><strong id="accountEmail">—</strong></div>
+        <div><span>Mobile</span><strong id="accountPhone">—</strong></div>
+        <div><span>Email verification</span><strong id="accountVerified">Verified</strong></div>
+        <div><span>Cash on delivery</span><strong id="accountCod">Not enabled</strong></div>
       </div>
     </section>
 
-    <div class="category-strip" id="categories">
-      <button class="category active" data-category="">All</button>
-    </div>
-
-    <section class="promo" id="promoBanner">
-      <div class="promo-copy">
-        <div class="tag">Wholesale advantage</div>
-        <h2>Buy in smarter slabs.<br>Keep more margin.</h2>
-        <p>Unlock better unit prices as your quantity increases.</p>
-        <button id="promoAction">Explore bulk deals</button>
-      </div>
-      <div class="promo-art">📦</div>
+    <section class="quick-grid">
+      <a class="quick" href="retailer-dashboard.html"><div class="quick-icon">🛍️</div><div><strong>Shop products</strong><br><span>Browse wholesale catalogue</span></div></a>
+      <a class="quick" href="earnings.html"><div class="quick-icon">📈</div><div><strong>Earnings</strong><br><span>Potential margin & order profit</span></div></a>
+      <a class="quick" href="cart.html"><div class="quick-icon">🛒</div><div><strong>My cart</strong><br><span>Continue your current order</span></div></a>
+      <button class="quick" id="editProfileOpen" style="text-align:left"><div class="quick-icon">✎</div><div><strong>Edit profile</strong><br><span>Business & contact details</span></div></button>
     </section>
 
-    <section class="section" id="bestMarginSection">
-      <div class="section-head">
-        <div class="section-title"><h2>Best margin products</h2><p>Products with stronger potential profit per unit</p></div>
-        <button class="see-all" data-scroll="productsSection">See all</button>
+    <section class="section">
+      <div class="section-head"><h2>My account</h2></div>
+      <div class="card">
+        <a class="menu-row" href="earnings.html">
+          <div class="menu-icon">📊</div><div class="menu-copy"><strong>Earnings & margins</strong><span>See earnings by month, order and product</span></div><div class="chev">›</div>
+        </a>
+        <button class="menu-row" id="ordersShortcut" style="width:100%;border-top:0;border-left:0;border-right:0;background:white;text-align:left">
+          <div class="menu-icon">📦</div><div class="menu-copy"><strong>My orders</strong><span>Placed, packed, dispatched and delivered orders</span></div><div class="chev">›</div>
+        </button>
+        <a class="menu-row" href="address.html">
+          <div class="menu-icon">📍</div><div class="menu-copy"><strong>Saved addresses</strong><span>Manage shop, warehouse and delivery addresses</span></div><div class="chev">›</div>
+        </a>
+        <button class="menu-row" id="editProfileRow" style="width:100%;border:0;background:white;text-align:left">
+          <div class="menu-icon">👤</div><div class="menu-copy"><strong>Profile details</strong><span id="profileSummary">Update retailer information</span></div><div class="chev">›</div>
+        </button>
       </div>
-      <div class="h-scroll" id="bestMarginProducts"></div>
     </section>
 
-    <section class="section" id="frequentSection">
-      <div class="section-head">
-        <div class="section-title"><h2>Frequently ordered</h2><p>Your regular stock, ready to reorder</p></div>
+    <section class="section" id="editSection" hidden>
+      <div class="section-head"><h2>Edit retailer profile</h2><button class="text-btn" id="closeEdit">Close</button></div>
+      <div class="card">
+        <form class="edit-form" id="editForm">
+          <label class="label">Full name<input class="input" name="name" maxlength="120" required></label>
+          <label class="label">Business / shop name<input class="input" name="business_name" maxlength="180" required></label>
+          <label class="label">Mobile number<input class="input" name="phone" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" required></label>
+          <button class="primary" id="saveProfile">Save profile</button>
+          <div class="notice" id="editMessage" hidden></div>
+        </form>
       </div>
-      <div id="frequentProducts"></div>
     </section>
 
-    <section class="section" id="bulkSection">
-      <div class="section-head">
-        <div class="section-title"><h2>Bulk deals</h2><p>Buy more units and unlock a lower unit price</p></div>
+    <section class="section">
+      <div class="section-head"><h2>Security</h2></div>
+      <div class="card">
+        <div class="menu-row">
+          <div class="menu-icon">✓</div><div class="menu-copy"><strong>Verified email account</strong><span id="securityEmail">Your email is confirmed with ONeness</span></div>
+        </div>
+        <button class="menu-row" id="changePassword" style="width:100%;border:0;background:white;text-align:left">
+          <div class="menu-icon">🔐</div><div class="menu-copy"><strong>Change password</strong><span>Verify your email before resetting the password</span></div><div class="chev">›</div>
+        </button>
       </div>
-      <div class="h-scroll bulk-row" id="bulkDeals"></div>
     </section>
 
-    <section class="section" id="trendingSection">
-      <div class="section-head">
-        <div class="section-title"><h2>Trending & best sellers</h2><p>Products retailers are buying more often</p></div>
-      </div>
-      <div class="h-scroll" id="trendingProducts"></div>
-    </section>
-
-    <section class="section" id="newSection">
-      <div class="section-head">
-        <div class="section-title"><h2>New arrivals</h2><p>Fresh additions to the wholesale catalogue</p></div>
-      </div>
-      <div class="h-scroll" id="newProducts"></div>
-    </section>
-
-    <section class="section" id="productsSection">
-      <div class="section-head">
-        <div class="section-title"><h2>All products</h2><p id="productCount">Loading catalogue…</p></div>
-      </div>
-      <div class="h-scroll" id="allProducts"></div>
-      <div id="loadState"></div>
-    </section>
+    <button class="danger-btn" id="logoutBtn">Sign out of this account</button>
   </main>
 
-  <nav class="bottom-nav" aria-label="Primary navigation">
-    <a class="nav-item active" href="retailer-dashboard.html">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"></path></svg>
-      <span>Home</span>
-    </a>
-    <a class="nav-item" href="earnings.html">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V9"></path><path d="M10 19V5"></path><path d="M16 19v-7"></path><path d="M22 19H2"></path></svg>
-      <span>Earnings</span>
-    </a>
-    <a class="nav-item" href="cart.html">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="20" r="1"></circle><circle cx="19" cy="20" r="1"></circle><path d="M3 4h2l2.5 11h11l2-8H7"></path></svg>
-      <span id="cartNavLabel">Cart</span><span id="cartNavCount" class="nav-badge" hidden>0</span>
-    </a>
-    <a class="nav-item" href="account.html">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>
-      <span>Account</span>
-    </a>
+  <nav class="bottom-nav">
+    <a class="nav" href="retailer-dashboard.html"><span class="nav-icon">⌂</span><span>Home</span></a>
+    <a class="nav" href="earnings.html"><span class="nav-icon">↗</span><span>Earnings</span></a>
+    <a class="nav" href="cart.html"><span class="nav-icon">🛒</span><span>Cart</span></a>
+    <a class="nav active" href="index.html"><span class="nav-icon">◯</span><span>Account</span></a>
   </nav>
-
-  <div class="toast" id="toast" role="status"></div>
 </div>
+
+<div class="toast" id="toast"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
 <script>
 (()=>{
 'use strict';
 
-const CONFIG={
-  supabaseUrl:'https://djnpsgtlzgebmjtxfpei.supabase.co',
-  publishableKey:'sb_publishable_97Gyvl_3GC_4irWpbIg0uA_SXDXeWb6',
-  retailerApi:'https://djnpsgtlzgebmjtxfpei.supabase.co/functions/v1/retailer',
-  loginPage:'index.html'
-};
-
-const PREVIEW=new URLSearchParams(location.search).get('preview')==='1';
-const db=window.supabase.createClient(CONFIG.supabaseUrl,CONFIG.publishableKey,{
+const SUPABASE_URL='https://djnpsgtlzgebmjtxfpei.supabase.co';
+const SUPABASE_KEY='sb_publishable_97Gyvl_3GC_4irWpbIg0uA_SXDXeWb6';
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{
   auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storageKey:'oneness-retailer'}
 });
 
 const $=id=>document.getElementById(id);
-const money=p=>new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(Number(p||0)/100);
-const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const OTP_KEY='oneness-retailer-otp';
+const RESEND_MS=60000;
+let mode='login',busy=false,otp=null,recoverySession=false,account=null,timer=null;
 
-const state={
-  user:null,profile:null,products:[],categories:[],frequent:[],trending:[],newArrivals:[],bulkDeals:[],
-  monthly:{wholesale_paise:0,mrp_paise:0,profit_paise:0,margin_pct:0,previous_profit_paise:null},
-  selectedCategory:'',cart:readCart(),search:''
-};
+function setVisible(id,show){$(id).hidden=!show}
+function showLoading(){setVisible('loadingScreen',true);setVisible('authView',false);setVisible('accountView',false)}
+function showAuth(){setVisible('loadingScreen',false);setVisible('authView',true);setVisible('accountView',false)}
+function showAccountView(){setVisible('loadingScreen',false);setVisible('authView',false);setVisible('accountView',true)}
+function toast(text){const t=$('toast');t.textContent=text;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2500)}
+function message(text,error=false){
+  const el=$('authMessage');if(!el)return;
+  el.textContent=text;el.hidden=false;el.className='notice'+(error?' error':'');
+}
+function normalizePhone(v){return String(v||'').replace(/\D/g,'').slice(-10)}
+function stopTimer(){if(timer){clearInterval(timer);timer=null}}
+function saveOtp(){if(otp)sessionStorage.setItem(OTP_KEY,JSON.stringify(otp));else sessionStorage.removeItem(OTP_KEY)}
+function loadOtp(){
+  try{const x=JSON.parse(sessionStorage.getItem(OTP_KEY)||'null');if(x?.email&&x?.purpose)return x}catch{}
+  return null;
+}
+function clearOtp(){otp=null;saveOtp();stopTimer()}
+function showPassword(btn,input){
+  const x=$(input);if(!x)return;
+  const next=x.type==='password'?'text':'password';x.type=next;btn.textContent=next==='text'?'Hide':'Show';
+}
+function inputField(label,name,type='text',extra=''){
+  return `<label class="label">${label}<div class="input-wrap"><input class="input" name="${name}" type="${type}" ${extra}></div></label>`;
+}
+function passwordField(label,name,autocomplete,min=''){
+  return `<label class="label">${label}<div class="input-wrap"><input class="input password-input" id="${name}Field" name="${name}" type="password" ${min?`minlength="${min}"`:''} required autocomplete="${autocomplete}"><button class="eye" type="button" data-eye="${name}Field">Show</button></div></label>`;
+}
+function bindEyes(){for(const b of document.querySelectorAll('[data-eye]'))b.onclick=()=>showPassword(b,b.dataset.eye)}
 
-function readCart(){
+function renderLogin(){
+  mode='login';stopTimer();showAuth();
+  $('authContent').innerHTML=`
+    <div class="eyebrow">Retailer account</div><h2>Welcome back</h2>
+    <p class="lead">Sign in to shop wholesale products and manage your retailer account.</p>
+    <div class="tabs"><button class="tab active" type="button">Login</button><button class="tab" id="goSignup" type="button">Create account</button></div>
+    <form class="form" id="authForm">
+      ${inputField('Email address','email','email','maxlength="254" autocomplete="email" required placeholder="you@business.com"')}
+      ${passwordField('Password','password','current-password')}
+      <button class="primary" id="authSubmit">Login to ONeness</button>
+      <div class="notice" id="authMessage" hidden></div>
+    </form>
+    <div class="auth-links"><button class="text-btn" id="forgotBtn">Forgot password?</button><button class="text-btn" id="verifyBtn">Verify email</button></div>
+    <div class="secure">🔒 <span>Your login is handled by Supabase Auth. No secret/service-role key is stored in this page.</span></div>`;
+  bindEyes();
+  $('goSignup').onclick=renderSignup;
+  $('forgotBtn').onclick=()=>renderEmailAction('recovery');
+  $('verifyBtn').onclick=()=>renderEmailAction('signup');
+  $('authForm').onsubmit=login;
+}
+function renderSignup(){
+  mode='signup';stopTimer();showAuth();
+  $('authContent').innerHTML=`
+    <div class="eyebrow">New retailer</div><h2>Create your account</h2>
+    <p class="lead">Register your business. We will send an OTP to verify your email before activating the retailer account.</p>
+    <div class="tabs"><button class="tab" id="goLogin" type="button">Login</button><button class="tab active" type="button">Create account</button></div>
+    <form class="form" id="authForm">
+      <div class="row-2">
+        ${inputField('Full name','name','text','maxlength="120" autocomplete="name" required placeholder="Your full name"')}
+        ${inputField('Mobile number','phone','tel','maxlength="10" inputmode="numeric" autocomplete="tel" required placeholder="10 digit mobile"')}
+      </div>
+      ${inputField('Business / shop name','business_name','text','maxlength="180" autocomplete="organization" required placeholder="Your business name"')}
+      ${inputField('Email address','email','email','maxlength="254" autocomplete="email" required placeholder="you@business.com"')}
+      <div class="row-2">
+        ${passwordField('Create password','password','new-password','8')}
+        ${passwordField('Confirm password','confirm_password','new-password','8')}
+      </div>
+      <button class="primary" id="authSubmit">Create account & send OTP</button>
+      <div class="notice" id="authMessage" hidden></div>
+    </form>
+    <div class="auth-links"><span style="font-size:10px;color:#7c8881">Already registered?</span><button class="text-btn" id="backLogin">Login</button></div>
+    <div class="secure">✉️ <span>Email verification is mandatory. After the OTP is verified, the retailer profile becomes active automatically.</span></div>`;
+  bindEyes();
+  $('goLogin').onclick=renderLogin;$('backLogin').onclick=renderLogin;
+  $('authForm').onsubmit=signup;
+}
+function renderEmailAction(purpose){
+  mode=purpose==='recovery'?'forgot':'verify';stopTimer();showAuth();
+  const recovery=purpose==='recovery';
+  $('authContent').innerHTML=`
+    <div class="eyebrow">${recovery?'Password recovery':'Email verification'}</div>
+    <h2>${recovery?'Reset your password':'Verify your email'}</h2>
+    <p class="lead">${recovery?'Enter your registered retailer email. We will send a verification OTP before allowing a new password.':'Enter the email used while creating your retailer account.'}</p>
+    <form class="form" id="authForm">
+      ${inputField('Email address','email','email','maxlength="254" autocomplete="email" required placeholder="you@business.com"')}
+      <button class="primary" id="authSubmit">${recovery?'Send reset OTP':'Send verification OTP'}</button>
+      <div class="notice" id="authMessage" hidden></div>
+    </form>
+    <div class="auth-links"><button class="text-btn" id="backLogin">← Back to login</button></div>`;
+  $('backLogin').onclick=renderLogin;
+  $('authForm').onsubmit=e=>sendExistingOtp(e,purpose);
+}
+function renderOtp(){
+  if(!otp){renderLogin();return}
+  mode='otp';showAuth();stopTimer();
+  $('authContent').innerHTML=`
+    <div class="eyebrow">${otp.purpose==='recovery'?'Password recovery':'Email verification'}</div>
+    <h2>Enter the OTP</h2>
+    <p class="lead">Enter the verification code sent to your email.</p>
+    <div class="otp-mail">Code sent to <strong>${esc(otp.email)}</strong></div>
+    <form class="form" id="otpForm">
+      <label class="label">Email OTP<input class="otp-input" id="otpInput" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6,10}" maxlength="10" required></label>
+      <button class="primary" id="verifyOtpBtn">Verify OTP</button>
+      <div class="notice" id="authMessage" hidden></div>
+    </form>
+    <div class="timer" id="otpTimer"></div>
+    <div class="auth-links"><button class="text-btn" id="resendOtp">Resend OTP</button><button class="text-btn" id="otpBack">Back to login</button></div>
+    <div class="secure">✓ <span>Use the newest OTP email. Verification codes expire and can only be used once.</span></div>`;
+  $('otpInput').oninput=e=>e.target.value=e.target.value.replace(/\D/g,'').slice(0,10);
+  $('otpForm').onsubmit=verifyOtp;
+  $('resendOtp').onclick=resendOtp;
+  $('otpBack').onclick=()=>{clearOtp();renderLogin()};
+  tickOtp();timer=setInterval(tickOtp,1000);$('otpInput').focus();
+}
+function tickOtp(){
+  if(!otp||!$('otpTimer'))return;
+  const left=Math.max(0,otp.nextResend-Date.now());
+  $('resendOtp').disabled=left>0||busy;
+  $('otpTimer').textContent=left>0?`You can resend in ${Math.ceil(left/1000)} seconds.`:'Didn’t receive it? You can request a new OTP.';
+}
+function renderReset(){
+  mode='reset';showAuth();stopTimer();
+  $('authContent').innerHTML=`
+    <div class="success-check">✓</div><div class="eyebrow" style="text-align:center">Email verified</div>
+    <h2 style="text-align:center">Choose a new password</h2>
+    <p class="lead" style="text-align:center">Your recovery OTP was verified successfully.</p>
+    <form class="form" id="resetForm">
+      ${passwordField('New password','newPassword','new-password','8')}
+      ${passwordField('Confirm new password','confirmNewPassword','new-password','8')}
+      <button class="primary" id="authSubmit">Save new password</button>
+      <div class="notice" id="authMessage" hidden></div>
+    </form>`;
+  bindEyes();$('resetForm').onsubmit=saveNewPassword;
+}
+function setBusy(v){
+  busy=v;
+  for(const el of document.querySelectorAll('button'))if(el.id==='authSubmit'||el.id==='verifyOtpBtn')el.disabled=v;
+}
+function friendly(e){
+  const m=(e?.message||'').toLowerCase();
+  if(m.includes('invalid login credentials'))return 'Incorrect email or password.';
+  if(m.includes('email not confirmed'))return 'Your email is not verified yet. Use “Verify email” to request a new OTP.';
+  if(m.includes('already registered')||m.includes('user already'))return 'An account already exists with this email. Please login instead.';
+  if(m.includes('rate limit'))return 'Too many requests. Please wait before requesting another OTP.';
+  if(m.includes('password'))return e.message||'Please use a stronger password.';
+  return e?.message||'Something went wrong. Please try again.';
+}
+async function login(e){
+  e.preventDefault();if(busy)return;
+  const f=Object.fromEntries(new FormData(e.currentTarget));setBusy(true);
   try{
-    const v=JSON.parse(localStorage.getItem('oneness-retailer-cart')||'[]');
-    return Array.isArray(v)?v.filter(x=>Number.isInteger(x.product_id)&&x.qty>0):[];
-  }catch{return []}
+    const {data,error}=await db.auth.signInWithPassword({email:f.email.trim(),password:f.password});
+    if(error)throw error;
+    if(!data.user)throw Error('Could not confirm this account.');
+    const p=await fetchAccount();
+    if(p.role&&p.role!=='retailer')throw Error('This is not a retailer account.');
+    renderAccount(p);
+  }catch(err){message(friendly(err),true)}
+  finally{setBusy(false)}
 }
-function saveCart(){localStorage.setItem('oneness-retailer-cart',JSON.stringify(state.cart));updateCartBadges()}
-function cartCount(){return state.cart.reduce((n,x)=>n+Number(x.qty||0),0)}
-function updateCartBadges(){
-  const n=cartCount();
-  for(const id of ['cartTopCount','cartNavCount']){
-    const el=$(id);el.textContent=n>99?'99+':String(n);el.hidden=n===0;
-  }
+async function signup(e){
+  e.preventDefault();if(busy)return;
+  const f=Object.fromEntries(new FormData(e.currentTarget));
+  f.email=f.email.trim().toLowerCase();f.phone=normalizePhone(f.phone);
+  if(f.name.trim().length<2)return message('Enter your full name.',true);
+  if(f.business_name.trim().length<2)return message('Enter your business / shop name.',true);
+  if(!/^\d{10}$/.test(f.phone))return message('Enter a valid 10 digit mobile number.',true);
+  if(f.password.length<8)return message('Password must be at least 8 characters.',true);
+  if(f.password!==f.confirm_password)return message('Passwords do not match.',true);
+  setBusy(true);
+  try{
+    const {data,error}=await db.auth.signUp({
+      email:f.email,password:f.password,
+      options:{data:{
+        account_type:'retailer',
+        name:f.name.trim(),
+        phone:f.phone,
+        business_name:f.business_name.trim()
+      }}
+    });
+    if(error)throw error;
+    if(data.session){
+      await db.auth.signOut({scope:'local'});
+      throw Error('Email confirmation is disabled for this project. Enable email confirmation before public retailer signup.');
+    }
+    otp={email:f.email,purpose:'signup',nextResend:Date.now()+RESEND_MS};
+    saveOtp();renderOtp();message('OTP sent. Check your email and enter the code here.');
+  }catch(err){message(friendly(err),true)}
+  finally{setBusy(false)}
 }
-function toast(text){
-  const el=$('toast');el.textContent=text;el.classList.add('show');
-  clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove('show'),2600);
+async function sendExistingOtp(e,purpose){
+  e.preventDefault();if(busy)return;
+  const email=new FormData(e.currentTarget).get('email').trim().toLowerCase();
+  setBusy(true);
+  try{
+    let result;
+    if(purpose==='recovery')result=await db.auth.resetPasswordForEmail(email);
+    else result=await db.auth.resend({type:'signup',email});
+    if(result.error)throw result.error;
+    otp={email,purpose,nextResend:Date.now()+RESEND_MS};saveOtp();renderOtp();
+    message('If this email has an eligible retailer account, a code will arrive shortly.');
+  }catch(err){message(friendly(err),true)}
+  finally{setBusy(false)}
 }
-function currentPrice(product,qty){
-  let price=Number(product.price_paise||0);
-  const rules=Array.isArray(product.bulk_rules)?product.bulk_rules.slice().sort((a,b)=>Number(a.min_qty)-Number(b.min_qty)):[];
-  for(const r of rules)if(qty>=Number(r.min_qty||0))price=Number(r.price_paise||price);
-  return price;
+async function resendOtp(){
+  if(!otp||busy||Date.now()<otp.nextResend)return;
+  setBusy(true);
+  try{
+    let r;
+    if(otp.purpose==='recovery')r=await db.auth.resetPasswordForEmail(otp.email);
+    else r=await db.auth.resend({type:'signup',email:otp.email});
+    if(r.error)throw r.error;
+    otp.nextResend=Date.now()+RESEND_MS;saveOtp();tickOtp();message('A new OTP has been sent. Use the newest code.');
+  }catch(err){message(friendly(err),true)}
+  finally{setBusy(false);tickOtp()}
 }
-function productMargin(product,qty=1){
-  const price=currentPrice(product,Math.max(qty,Number(product.min_qty||1)));
-  return Math.max(0,Number(product.mrp_paise||0)-price);
+async function verifyOtp(e){
+  e.preventDefault();if(busy||!otp)return;
+  const token=$('otpInput').value.trim();
+  if(!/^\d{6,10}$/.test(token))return message('Enter the numeric OTP from your email.',true);
+  setBusy(true);
+  try{
+    const {data,error}=await db.auth.verifyOtp({
+      email:otp.email,token,
+      type:otp.purpose==='recovery'?'recovery':'email'
+    });
+    if(error)throw error;
+    if(!data.session)throw Error('OTP verification did not create a session. Request a new code.');
+    const purpose=otp.purpose;clearOtp();
+    if(purpose==='recovery'){recoverySession=true;renderReset()}
+    else{
+      const p=await fetchAccount();
+      renderAccount(p);toast('Email verified. Your retailer account is active.');
+    }
+  }catch(err){
+    message(err?.code==='otp_expired'?'That OTP is invalid or expired. Request a new code.':friendly(err),true);
+    if($('otpInput')){$('otpInput').value='';$('otpInput').focus()}
+  }finally{setBusy(false)}
 }
-function marginPct(product){
-  const mrp=Number(product.mrp_paise||0),p=Number(product.price_paise||0);
-  return mrp>0?Math.max(0,Math.round((mrp-p)*100/mrp)):0;
+async function saveNewPassword(e){
+  e.preventDefault();if(busy)return;
+  const f=Object.fromEntries(new FormData(e.currentTarget));
+  if(f.newPassword.length<8)return message('Password must be at least 8 characters.',true);
+  if(f.newPassword!==f.confirmNewPassword)return message('Passwords do not match.',true);
+  if(!recoverySession)return message('Verify a recovery OTP first.',true);
+  setBusy(true);
+  try{
+    const {error}=await db.auth.updateUser({password:f.newPassword});if(error)throw error;
+    await db.auth.signOut({scope:'global'});recoverySession=false;clearOtp();renderLogin();message('Password changed successfully. Login with your new password.');
+  }catch(err){message(friendly(err),true)}
+  finally{setBusy(false)}
 }
-function imageOf(p){return Array.isArray(p.images)&&p.images[0]?p.images[0]:''}
-function categoryName(id){return state.categories.find(c=>Number(c.id)===Number(id))?.name||''}
-function firstName(){
-  const raw=state.profile?.name||state.user?.user_metadata?.name||'Retailer';
-  return raw.trim().split(/\s+/)[0]||'Retailer';
+async function fetchAccount(){
+  const {data:{user},error:uerr}=await db.auth.getUser();
+  if(uerr||!user)throw Error('Please login again.');
+  const {data,error}=await db.rpc('retailer_account');
+  if(error)throw error;
+  return {...data,role:'retailer'};
 }
-function greeting(){
-  const h=new Date().getHours();
-  return h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+function renderAccount(p){
+  account=p;showAccountView();stopTimer();
+  const name=p.name||'Retailer',business=p.business_name||'Retailer business';
+  $('accountName').textContent=name;$('accountBusiness').textContent=business;
+  $('avatarLetter').textContent=(name.trim()[0]||'R').toUpperCase();
+  $('accountEmail').textContent=p.email||'—';$('accountPhone').textContent=p.phone||'—';
+  $('accountVerified').textContent=p.email_confirmed?'Verified ✓':'Verification required';
+  $('accountCod').textContent=p.cod_allowed?'Available':'Not enabled';
+  $('accountStatus').textContent=p.status==='blocked'?'● Account blocked':'● Active retailer';
+  $('securityEmail').textContent=p.email?`${p.email} is verified with ONeness`:'Your email is verified with ONeness';
+  $('profileSummary').textContent=[business,p.phone].filter(Boolean).join(' · ');
+  const f=$('editForm');f.elements.name.value=p.name||'';f.elements.phone.value=p.phone||'';f.elements.business_name.value=p.business_name||'';
+  if(p.status==='blocked'){toast('This retailer account is blocked. Please contact the store.')}
 }
+async function saveProfile(e){
+  e.preventDefault();if(busy)return;
+  const f=Object.fromEntries(new FormData(e.currentTarget));f.phone=normalizePhone(f.phone);
+  const msg=$('editMessage');msg.hidden=true;
+  if(!/^\d{10}$/.test(f.phone)){msg.textContent='Enter a valid 10 digit mobile number.';msg.className='notice error';msg.hidden=false;return}
+  busy=true;$('saveProfile').disabled=true;
+  try{
+    const {data,error}=await db.rpc('retailer_profile_update',{p_name:f.name.trim(),p_phone:f.phone,p_business_name:f.business_name.trim()});
+    if(error)throw error;
+    account={...account,...data,email_confirmed:account.email_confirmed};renderAccount(account);$('editSection').hidden=true;toast('Profile updated successfully.');
+  }catch(err){msg.textContent=friendly(err);msg.className='notice error';msg.hidden=false}
+  finally{busy=false;$('saveProfile').disabled=false}
+}
+async function logout(){
+  $('logoutBtn').disabled=true;
+  try{await db.auth.signOut({scope:'local'})}catch{}
+  clearOtp();account=null;renderLogin();toast('Signed out.');
+}
+function openEdit(){$('editSection').hidden=false;$('editSection').scrollIntoView({behavior:'smooth',block:'start'})}
 
-async function api(action,data={}){
-  const {data:s}=await db.auth.getSession();
-  if(!s.session)throw Object.assign(new Error('LOGIN_REQUIRED'),{code:'LOGIN_REQUIRED'});
-  const r=await fetch(CONFIG.retailerApi,{
-    method:'POST',
-    headers:{'Content-Type':'application/json','Authorization':'Bearer '+s.session.access_token,'apikey':CONFIG.publishableKey},
-    body:JSON.stringify({action,data}),
-    signal:AbortSignal.timeout(30000)
-  });
-  let j={};try{j=await r.json()}catch{}
-  if(!r.ok||j.ok!==true)throw Object.assign(new Error(j.error?.message||'Could not load retailer data.'),{code:j.error?.code,status:r.status});
-  return j.data;
-}
-
-function demoData(){
-  const products=[
-    {id:1,category_id:1,title:'Premium Hair Oil 200ml',description:'Fast-moving retail pack with strong shelf margin.',images:[],unit:'bottle',mrp_paise:15000,price_paise:9000,min_qty:10,qty_step:5,stock:220,bulk_rules:[{min_qty:25,price_paise:8500},{min_qty:50,price_paise:7900}],created_at:'2026-09-27'},
-    {id:2,category_id:2,title:'Glow Face Cream 50g',description:'Daily-use beauty product.',images:[],unit:'piece',mrp_paise:18000,price_paise:11200,min_qty:6,qty_step:6,stock:84,bulk_rules:[{min_qty:24,price_paise:10400},{min_qty:48,price_paise:9800}],created_at:'2026-09-26'},
-    {id:3,category_id:3,title:'Fresh Soap Pack',description:'High rotation family soap pack.',images:[],unit:'pack',mrp_paise:6000,price_paise:3900,min_qty:12,qty_step:12,stock:312,bulk_rules:[{min_qty:48,price_paise:3600}],created_at:'2026-09-20'},
-    {id:4,category_id:1,title:'Herbal Shampoo 180ml',description:'Retail-friendly shampoo pack.',images:[],unit:'bottle',mrp_paise:12500,price_paise:8200,min_qty:12,qty_step:6,stock:96,bulk_rules:[{min_qty:36,price_paise:7600}],created_at:'2026-09-24'},
-    {id:5,category_id:4,title:'Masala Combo Pack',description:'Popular grocery counter combo.',images:[],unit:'pack',mrp_paise:9500,price_paise:6900,min_qty:10,qty_step:5,stock:150,bulk_rules:[{min_qty:30,price_paise:6400}],created_at:'2026-09-22'},
-    {id:6,category_id:2,title:'Body Lotion 100ml',description:'Compact personal care retail pack.',images:[],unit:'piece',mrp_paise:14000,price_paise:9600,min_qty:8,qty_step:4,stock:65,bulk_rules:[{min_qty:24,price_paise:8900}],created_at:'2026-09-18'}
-  ];
-  return {
-    profile:{name:'Akash Patil',business_name:'Akash General Stores'},
-    categories:[{id:1,name:'Hair Care'},{id:2,name:'Beauty'},{id:3,name:'Personal Care'},{id:4,name:'Grocery'}],
-    products,
-    best_margin:[products[0],products[1],products[3],products[5],products[2]],
-    frequent:[products[2],products[0],products[4]],
-    trending:[products[0],products[4],products[1],products[2]],
-    new_arrivals:[products[0],products[1],products[3]],
-    bulk_deals:[products[0],products[1],products[3],products[4]],
-    monthly:{wholesale_paise:4635000,mrp_paise:6480000,profit_paise:1845000,margin_pct:28.47,previous_profit_paise:1520000}
-  };
-}
+$('editForm').onsubmit=saveProfile;
+$('logoutBtn').onclick=logout;
+$('editProfileOpen').onclick=openEdit;$('editProfileRow').onclick=openEdit;
+$('closeEdit').onclick=()=>$('editSection').hidden=true;
+$('changePassword').onclick=()=>{
+  const email=account?.email||'';
+  renderEmailAction('recovery');
+  const input=document.querySelector('input[name=email]');if(input&&email)input.value=email;
+};
+$('ordersShortcut').onclick=()=>toast('Orders will appear inside Account when the orders view is connected.');
 
 async function boot(){
-  updateCartBadges();
-  renderLoading();
-
-  if(PREVIEW){
-    applyHome(demoData());
-    return;
-  }
-
-  const {data:{user},error}=await db.auth.getUser();
-  if(error||!user){
-    location.replace(CONFIG.loginPage+'?next='+encodeURIComponent('retailer-dashboard.html'));
-    return;
-  }
-  state.user=user;
-
-  try{
-    const home=await api('home');
-    applyHome(home);
-  }catch(e){
-    if(['LOGIN_REQUIRED','NOT_RETAILER','RETAILER_BLOCKED','RETAILER_NOT_FOUND'].includes(e.code)||e.status===401){
+  showLoading();
+  const callbackError=new URLSearchParams(location.hash.replace(/^#/,'')).get('error_description');
+  const {data:{user}}=await db.auth.getUser();
+  if(user){
+    try{const p=await fetchAccount();renderAccount(p);return}
+    catch(err){
       try{await db.auth.signOut({scope:'local'})}catch{}
-      location.replace(CONFIG.loginPage+'?next='+encodeURIComponent('retailer-dashboard.html'));
-      return;
+      renderLogin();message(err.message.includes('Retailer account required')?'This login belongs to the admin portal, not the retailer portal.':friendly(err),true);return
     }
-    renderBackendPending(e);
   }
+  otp=loadOtp();
+  if(otp)renderOtp();else renderLogin();
+  if(callbackError)message(callbackError,true);
 }
-
-function applyHome(home){
-  state.profile=home.profile||{};
-  state.categories=Array.isArray(home.categories)?home.categories:[];
-  state.products=Array.isArray(home.products)?home.products:[];
-  state.frequent=Array.isArray(home.frequent)?home.frequent:[];
-  state.trending=Array.isArray(home.trending)?home.trending:[];
-  state.newArrivals=Array.isArray(home.new_arrivals)?home.new_arrivals:[];
-  state.bulkDeals=Array.isArray(home.bulk_deals)?home.bulk_deals:[];
-  state.monthly={...state.monthly,...(home.monthly||{})};
-
-  $('greetingTitle').textContent=`${greeting()}, ${firstName()} 👋`;
-  $('greetingSub').textContent=state.profile?.business_name?`Stock ${state.profile.business_name} smarter and grow your margin.`:'Buy smarter. Grow the margin on every shelf.';
-  $('businessLabel').textContent=(state.profile?.business_name||'My account')+' →';
-
-  renderMonthly();
-  renderCategories();
-  renderAllSections();
-}
-
-function renderMonthly(){
-  const m=state.monthly;
-  const exact=Number.isFinite(Number(m.mrp_paise))&&Number.isFinite(Number(m.wholesale_paise))&&m.mrp_paise!==null;
-  $('monthWholesale').textContent=money(m.wholesale_paise||0);
-  $('monthMrp').textContent=exact?money(m.mrp_paise):'Tracking soon';
-  $('monthProfit').textContent=exact?money(m.profit_paise||0):'—';
-  $('monthMargin').textContent=exact?`${Number(m.margin_pct||0).toFixed(1)}%`:'—';
-  $('profitFormula').textContent=exact?`Retail value ${money(m.mrp_paise)} − Wholesale cost ${money(m.wholesale_paise)}`:'Exact earnings appear after MRP is saved with each order.';
-  $('profitProgress').innerHTML=exact?`<b>${money(m.profit_paise||0)}</b> potential profit generated this month`:'<b>Earnings tracking</b> will use the MRP saved at purchase time.';
-  if(exact&&m.previous_profit_paise!==null&&m.previous_profit_paise!==undefined){
-    const diff=Number(m.profit_paise||0)-Number(m.previous_profit_paise||0);
-    $('monthCompare').textContent=(diff>=0?'↑ ':'↓ ')+money(Math.abs(diff))+(diff>=0?' more':' less')+' than last month';
-  }else $('monthCompare').textContent='Build your monthly margin with smarter bulk buying';
-}
-
-function renderCategories(){
-  $('categories').innerHTML=`<button class="category ${state.selectedCategory===''?'active':''}" data-category="">All</button>`+
-    state.categories.map(c=>`<button class="category ${String(state.selectedCategory)===String(c.id)?'active':''}" data-category="${esc(c.id)}">${esc(c.name)}</button>`).join('');
-  for(const b of $('categories').querySelectorAll('[data-category]')){
-    b.onclick=()=>{state.selectedCategory=b.dataset.category;renderCategories();renderAllProducts();$('productsSection').scrollIntoView({behavior:'smooth',block:'start'})}
-  }
-}
-
-function productCard(p){
-  const row=state.cart.find(x=>x.product_id===Number(p.id));
-  const qty=row?.qty||0;
-  const img=imageOf(p);
-  const margin=productMargin(p);
-  const pct=marginPct(p);
-  const out=Number(p.stock||0)<Number(p.min_qty||1);
-  return `<article class="product-card" data-product="${esc(p.id)}">
-    <div class="product-image">
-      ${img?`<img src="${esc(img)}" alt="${esc(p.title)}" loading="lazy">`:`<div class="placeholder">◇</div>`}
-      <span class="margin-pill">${pct}% margin</span>
-      <span class="stock-pill">${out?'Out':Number(p.stock)<20?'Low stock':'In stock'}</span>
-    </div>
-    <div class="product-body">
-      <div class="product-cat">${esc(categoryName(p.category_id)||'Wholesale')}</div>
-      <div class="product-title">${esc(p.title)}</div>
-      <div class="price-row"><span class="price">${money(p.price_paise)}</span><span class="mrp">${money(p.mrp_paise)}</span></div>
-      <div class="save">Potential ${money(margin)} profit / ${esc(p.unit||'unit')}</div>
-      <div class="meta">Min ${Number(p.min_qty||1)} · Step ${Number(p.qty_step||1)}</div>
-      <div class="product-actions">
-        ${qty?`<div class="stepper"><button data-minus="${p.id}" aria-label="Decrease">−</button><strong>${qty}</strong><button data-plus="${p.id}" aria-label="Increase">+</button></div>`:
-        `<button class="add-btn" data-add="${p.id}" ${out?'disabled':''}>${out?'Out of stock':'+ Add'}</button><button class="detail-btn" data-open="${p.id}" aria-label="Product details">›</button>`}
-      </div>
-    </div>
-  </article>`;
-}
-
-function wireProductActions(root=document){
-  for(const b of root.querySelectorAll('[data-add]'))b.onclick=e=>{e.stopPropagation();addProduct(Number(b.dataset.add))}
-  for(const b of root.querySelectorAll('[data-plus]'))b.onclick=e=>{e.stopPropagation();changeQty(Number(b.dataset.plus),1)}
-  for(const b of root.querySelectorAll('[data-minus]'))b.onclick=e=>{e.stopPropagation();changeQty(Number(b.dataset.minus),-1)}
-  for(const b of root.querySelectorAll('[data-open]'))b.onclick=e=>{e.stopPropagation();location.href='product.html?id='+encodeURIComponent(b.dataset.open)}
-  for(const card of root.querySelectorAll('[data-product]'))card.onclick=e=>{if(e.target.closest('button'))return;location.href='product.html?id='+encodeURIComponent(card.dataset.product)}
-}
-function addProduct(id){
-  const p=state.products.find(x=>Number(x.id)===id);if(!p)return;
-  const q=Math.max(Number(p.min_qty||1),1);
-  const existing=state.cart.find(x=>x.product_id===id);
-  if(existing)existing.qty=Math.min(Number(p.stock||999999),existing.qty+Number(p.qty_step||1));
-  else state.cart.push({product_id:id,qty:q});
-  saveCart();renderAllSections();toast(`${p.title} added to cart`);
-}
-function changeQty(id,direction){
-  const p=state.products.find(x=>Number(x.id)===id),r=state.cart.find(x=>x.product_id===id);if(!p||!r)return;
-  const step=Math.max(1,Number(p.qty_step||1)),min=Math.max(1,Number(p.min_qty||1));
-  let next=r.qty+direction*step;
-  if(next<min){state.cart=state.cart.filter(x=>x!==r)}
-  else r.qty=Math.min(Number(p.stock||next),next);
-  saveCart();renderAllSections();
-}
-
-function renderProductRow(id,products){
-  const el=$(id);
-  if(!products.length){el.innerHTML='<div class="empty-box" style="min-width:100%"><strong>Nothing here yet</strong>This section will populate from your catalogue and order history.</div>';return}
-  el.innerHTML=products.slice(0,10).map(productCard).join('');
-  wireProductActions(el);
-}
-function renderFrequent(){
-  const el=$('frequentProducts');
-  if(!state.frequent.length){$('frequentSection').hidden=true;return}
-  $('frequentSection').hidden=false;
-  el.innerHTML=state.frequent.slice(0,4).map(p=>`<div class="reorder-card">
-    <div class="reorder-img">${imageOf(p)?`<img src="${esc(imageOf(p))}" alt="">`:'◇'}</div>
-    <div><div class="reorder-name">${esc(p.title)}</div><div class="reorder-meta">${money(p.price_paise)} wholesale · Potential ${money(productMargin(p))}/${esc(p.unit||'unit')}</div></div>
-    <button class="reorder-btn" data-reorder="${p.id}">Reorder</button>
-  </div>`).join('');
-  for(const b of el.querySelectorAll('[data-reorder]'))b.onclick=()=>addProduct(Number(b.dataset.reorder));
-}
-function renderBulk(){
-  const rows=state.bulkDeals.length?state.bulkDeals:state.products.filter(p=>Array.isArray(p.bulk_rules)&&p.bulk_rules.length);
-  const el=$('bulkDeals');
-  if(!rows.length){$('bulkSection').hidden=true;return}
-  $('bulkSection').hidden=false;
-  el.innerHTML=rows.slice(0,8).map(p=>{
-    const rules=p.bulk_rules.slice().sort((a,b)=>a.min_qty-b.min_qty);
-    const best=rules.at(-1),base=Number(p.price_paise||0);
-    const save=Math.max(0,base-Number(best.price_paise||base));
-    return `<article class="bulk-card">
-      <div class="bulk-top"><div class="bulk-icon">📦</div><div><div class="bulk-name">${esc(p.title)}</div><div class="bulk-sub">Base ${money(base)} / ${esc(p.unit||'unit')}</div></div></div>
-      <div class="bulk-deal"><strong>${Number(best.min_qty)}+ at ${money(best.price_paise)}</strong><span>Save ${money(save)} per unit vs base wholesale price</span></div>
-      <button data-bulk="${p.id}">Add minimum bulk quantity</button>
-    </article>`;
-  }).join('');
-  for(const b of el.querySelectorAll('[data-bulk]'))b.onclick=()=>{
-    const p=state.products.find(x=>Number(x.id)===Number(b.dataset.bulk));if(!p)return;
-    const best=p.bulk_rules.slice().sort((a,b)=>a.min_qty-b.min_qty).at(-1);
-    const qty=Math.min(Number(p.stock||best.min_qty),Number(best.min_qty));
-    const r=state.cart.find(x=>x.product_id===Number(p.id));
-    if(r)r.qty=Math.max(r.qty,qty);else state.cart.push({product_id:Number(p.id),qty});
-    saveCart();renderAllSections();toast(`Bulk quantity added for ${p.title}`);
-  }
-}
-function renderAllProducts(){
-  let rows=state.products.filter(p=>!state.selectedCategory||String(p.category_id)===String(state.selectedCategory));
-  if(state.search)rows=rows.filter(p=>(`${p.title} ${p.description||''} ${categoryName(p.category_id)}`).toLowerCase().includes(state.search.toLowerCase()));
-  $('productCount').textContent=`${rows.length} product${rows.length===1?'':'s'} available`;
-  renderProductRow('allProducts',rows);
-}
-function renderAllSections(){
-  const best=state.products.slice().sort((a,b)=>productMargin(b)-productMargin(a));
-  renderProductRow('bestMarginProducts',state.bestMargin?.length?state.bestMargin:best);
-  renderFrequent();
-  renderBulk();
-  renderProductRow('trendingProducts',state.trending.length?state.trending:state.products.slice(0,5));
-  renderProductRow('newProducts',state.newArrivals.length?state.newArrivals:state.products.slice().sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0)).slice(0,5));
-  renderAllProducts();
-  $('loadState').innerHTML='';
-}
-function renderLoading(){
-  for(const id of ['bestMarginProducts','trendingProducts','newProducts','allProducts']){
-    $(id).innerHTML=Array.from({length:4},()=>'<div class="product-card" style="height:330px"><div class="skeleton" style="height:150px;border-radius:0"></div><div style="padding:12px"><div class="skeleton" style="height:12px;width:55%;margin-bottom:12px"></div><div class="skeleton" style="height:16px;width:90%;margin-bottom:10px"></div><div class="skeleton" style="height:28px;width:70%"></div></div></div>').join('');
-  }
-}
-function renderBackendPending(e){
-  $('greetingTitle').textContent=`${greeting()} 👋`;
-  $('businessLabel').textContent='Account →';
-  $('bestMarginProducts').innerHTML=`<div class="error-box" style="min-width:100%"><strong>Retailer backend is not connected yet</strong>The Home UI is ready, but the retailer-only API still needs to be installed on newapp03.<br><button class="retry" id="previewDesign">Preview this design</button></div>`;
-  for(const id of ['frequentSection','bulkSection','trendingSection','newSection','productsSection'])$(id).hidden=true;
-  $('previewDesign').onclick=()=>location.href='retailer-dashboard.html?preview=1';
-  console.warn(e);
-}
-
-function setupSearch(){
-  const input=$('searchInput'),clear=$('searchClear'),box=$('searchResults');
-  input.oninput=()=>{
-    state.search=input.value.trim();clear.hidden=!state.search;
-    if(!state.search){box.hidden=true;renderAllProducts();return}
-    const q=state.search.toLowerCase();
-    const matches=state.products.filter(p=>(`${p.title} ${p.description||''} ${categoryName(p.category_id)}`).toLowerCase().includes(q)).slice(0,7);
-    box.innerHTML=matches.length?matches.map(p=>`<a class="search-result" href="product.html?id=${encodeURIComponent(p.id)}">
-      ${imageOf(p)?`<img src="${esc(imageOf(p))}" alt="">`:'<div class="sr-img"></div>'}
-      <div><strong>${esc(p.title)}</strong><span>${money(p.price_paise)} wholesale · ${money(productMargin(p))} potential/unit</span></div>
-    </a>`).join(''):'<div class="search-result"><div><strong>No matching products</strong><span>Try another product or category.</span></div></div>';
-    box.hidden=false;renderAllProducts();
-  };
-  input.onfocus=()=>{if(state.search)input.dispatchEvent(new Event('input'))}
-  clear.onclick=()=>{input.value='';state.search='';clear.hidden=true;box.hidden=true;renderAllProducts();input.focus()}
-  document.addEventListener('click',e=>{if(!e.target.closest('.search'))box.hidden=true})
-}
-
-$('cartTopBtn').onclick=()=>location.href='cart.html';
-$('notificationBtn').onclick=()=>toast('Notifications will appear here.');
-$('increaseMargin').onclick=()=>{$('bestMarginSection').scrollIntoView({behavior:'smooth'})};
-$('promoAction').onclick=()=>{$('bulkSection').scrollIntoView({behavior:'smooth'})};
-for(const b of document.querySelectorAll('[data-scroll]'))b.onclick=()=>$(b.dataset.scroll)?.scrollIntoView({behavior:'smooth'});
-setupSearch();
-boot();
+boot().catch(e=>{showAuth();renderLogin();message(friendly(e),true)});
 })();
 </script>
 </body>
