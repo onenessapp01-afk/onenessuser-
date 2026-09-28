@@ -3,156 +3,381 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f4f6f1">
-<title>ONeness · Retailer Dashboard</title>
+<meta name="theme-color" content="#f5f6f1">
+<title>ONeness · Retailer Home</title>
 <style>
 :root{
-  --bg:#f4f6f1;--surface:#fff;--ink:#13251f;--muted:#77847d;
-  --green:#17634c;--green2:#0f4d3b;--green-soft:#e9f3eb;--lime:#dff2a8;
-  --orange:#f2ad67;--orange-soft:#fff0de;--line:#e3e8e2;--danger:#b34235;
-  --shadow:0 16px 50px rgba(22,55,43,.09);--r:20px;--nav:76px
+  --bg:#f5f6f1;
+  --surface:#ffffff;
+  --ink:#14251f;
+  --muted:#7b8780;
+  --green:#17634c;
+  --green-dark:#104d3c;
+  --green-soft:#eaf3ec;
+  --lime:#dff2a8;
+  --orange:#efaa61;
+  --line:#e3e9e3;
+  --shadow:0 14px 40px rgba(20,55,43,.08);
 }
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
-button,input{font:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}img{display:block;max-width:100%}[hidden]{display:none!important}
-.shell{width:min(1220px,100%);margin:auto}.app{min-height:100vh;padding-bottom:calc(var(--nav) + 22px + env(safe-area-inset-bottom))}
-.topbar{position:sticky;top:0;z-index:50;background:rgba(244,246,241,.92);backdrop-filter:blur(17px);border-bottom:1px solid rgba(227,232,226,.85)}
-.topbar-inner{min-height:70px;padding:10px 15px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center}
-.brand{display:flex;align-items:center;gap:9px}.logo{width:40px;height:40px;border-radius:13px;background:var(--green);color:white;display:grid;place-items:center;font-weight:950}.brand-copy{display:none}.brand-copy strong{display:block;font-size:14px}.brand-copy small{display:block;color:var(--muted);font-size:9px}
-.search{position:relative;max-width:620px;width:100%;justify-self:center}.search input{width:100%;height:44px;border:1px solid var(--line);border-radius:14px;background:white;padding:0 41px 0 41px;outline:none}.search input:focus{border-color:#9bb8a9;box-shadow:0 0 0 4px rgba(23,99,76,.08)}.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#7a867f}.clear{position:absolute;right:7px;top:7px;width:30px;height:30px;border:0;border-radius:9px;background:#f2f4ef;color:#68766f}
-.actions{display:flex;gap:7px}.icon-btn{position:relative;width:40px;height:40px;border:1px solid var(--line);border-radius:13px;background:white;display:grid;place-items:center}.badge{position:absolute;right:-4px;top:-5px;min-width:18px;height:18px;border-radius:999px;padding:0 4px;display:grid;place-items:center;background:var(--orange);font-size:9px;font-weight:900;border:2px solid var(--bg)}
+*{box-sizing:border-box}
+html{background:var(--bg);scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+button,input{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+[hidden]{display:none!important}
 
-.main{padding:17px 14px 34px}.hello{display:flex;justify-content:space-between;align-items:end;gap:14px;margin:4px 2px 17px}.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:1.7px;color:var(--green);font-weight:900}.hello h1{font-size:clamp(24px,4vw,37px);line-height:1.05;letter-spacing:-1.1px;margin:5px 0}.hello p{font-size:11px;color:var(--muted);margin:0}.account-chip{border:1px solid var(--line);background:white;border-radius:14px;padding:9px 11px;font-size:10px;font-weight:850;white-space:nowrap}
+.shell{width:min(1160px,100%);margin:auto}
+.app{min-height:100vh;padding-bottom:94px}
 
-.hero{background:linear-gradient(135deg,#123e31,#17634c 62%,#2e7760);color:white;border-radius:25px;padding:21px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
-.hero:before,.hero:after{content:"";position:absolute;border-radius:50%}.hero:before{width:220px;height:220px;right:-95px;top:-85px;background:rgba(223,242,168,.14)}.hero:after{width:140px;height:140px;right:110px;bottom:-90px;background:rgba(242,173,103,.15)}
-.hero-grid{position:relative;z-index:2;display:grid;gap:15px}.hero-main small{color:#d2e3da;font-size:10px;font-weight:800}.profit{font-size:clamp(38px,7vw,58px);font-weight:950;line-height:1;letter-spacing:-2.3px;margin:10px 0 7px}.formula{font-size:11px;color:#cfe0d8}
-.compare{display:inline-flex;margin-top:11px;padding:7px 9px;border-radius:999px;background:rgba(255,255,255,.11);font-size:9px;font-weight:850;color:#e5f7b4}
-.hero-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.metric{padding:11px;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.07)}.metric span{display:block;font-size:8px;color:#c9ddd3}.metric strong{display:block;font-size:13px;margin-top:3px}
-.hero-bottom{position:relative;z-index:2;margin-top:15px;padding-top:14px;border-top:1px solid rgba(255,255,255,.11);display:flex;justify-content:space-between;gap:10px;align-items:center}.hero-bottom span{font-size:10px;color:#d1e1d9}.hero-bottom button{border:0;background:var(--lime);color:#17372d;border-radius:12px;padding:10px 12px;font-size:10px;font-weight:900}
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:rgba(245,246,241,.95);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(227,233,227,.9);
+}
+.topbar-inner{
+  min-height:66px;
+  padding:9px 14px;
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr) auto;
+  align-items:center;
+  gap:10px;
+}
+.brand{display:flex;align-items:center;gap:9px}
+.logo{
+  width:39px;height:39px;border-radius:13px;
+  background:var(--green);color:#fff;
+  display:grid;place-items:center;
+  font-weight:950;font-size:18px;
+}
+.brand-copy{display:none}
+.brand-copy strong{display:block;font-size:14px}
+.brand-copy span{display:block;font-size:9px;color:var(--muted);margin-top:1px}
 
-.insight-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin:14px 0 22px}.insight{background:white;border:1px solid var(--line);border-radius:16px;padding:13px}.insight span{display:block;font-size:9px;color:var(--muted)}.insight strong{display:block;font-size:17px;margin-top:3px}.insight small{display:block;font-size:8px;color:#8d9992;margin-top:3px}
+.search{position:relative;width:100%}
+.search input{
+  width:100%;height:43px;
+  border:1px solid var(--line);
+  border-radius:14px;background:#fff;
+  padding:0 40px 0 39px;
+  outline:none;color:var(--ink);
+}
+.search input:focus{border-color:#9eb9ab;box-shadow:0 0 0 4px rgba(23,99,76,.07)}
+.search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#7e8a84}
+.clear{
+  position:absolute;right:6px;top:6px;width:31px;height:31px;
+  border:0;border-radius:9px;background:#f1f4ef;color:#65736c;
+}
+.search-results{
+  position:absolute;left:0;right:0;top:48px;z-index:80;
+  background:#fff;border:1px solid var(--line);border-radius:15px;
+  box-shadow:var(--shadow);padding:6px;max-height:340px;overflow:auto;
+}
+.search-row{
+  display:flex;align-items:center;gap:10px;
+  padding:8px;border-radius:11px;
+}
+.search-row:hover{background:#f5f7f3}
+.search-thumb{
+  width:43px;height:43px;border-radius:10px;
+  background:#f0f3ed;object-fit:contain;flex:0 0 43px;
+}
+.search-row strong{display:block;font-size:10px}
+.search-row span{display:block;font-size:8px;color:var(--muted);margin-top:3px}
 
-.categories{display:flex;gap:8px;overflow:auto;scrollbar-width:none;padding:1px 0 5px;margin-bottom:18px}.categories::-webkit-scrollbar{display:none}.cat{flex:0 0 auto;border:1px solid var(--line);background:white;color:#5c6a63;border-radius:999px;padding:9px 14px;font-size:10px;font-weight:800}.cat.active{background:var(--ink);color:white;border-color:var(--ink)}
+.header-actions{display:flex;gap:7px}
+.icon-btn{
+  width:39px;height:39px;border:1px solid var(--line);
+  background:#fff;border-radius:12px;display:grid;place-items:center;
+  position:relative;
+}
+.badge{
+  position:absolute;right:-4px;top:-5px;
+  min-width:18px;height:18px;padding:0 4px;border-radius:999px;
+  background:var(--orange);border:2px solid var(--bg);
+  display:grid;place-items:center;font-size:8px;font-weight:900;
+}
 
-.promo{border-radius:22px;background:#efe6d5;min-height:150px;padding:20px;position:relative;overflow:hidden;display:flex;align-items:center;margin-bottom:24px}.promo-copy{position:relative;z-index:2;max-width:68%}.promo .tag{font-size:9px;color:#80633d;font-weight:900;text-transform:uppercase;letter-spacing:1.3px}.promo h2{font-size:22px;line-height:1.05;letter-spacing:-.8px;margin:6px 0}.promo p{font-size:10px;color:#6f6553;line-height:1.5}.promo button{border:0;background:#1d362e;color:white;border-radius:11px;padding:9px 11px;font-size:9px;font-weight:850}.promo-art{position:absolute;right:-7px;bottom:-8px;width:135px;height:135px;border-radius:40px;background:linear-gradient(145deg,#efb469,#e98e3c);transform:rotate(-7deg);display:grid;place-items:center;font-size:58px}
+.main{padding:17px 14px 34px}
+.welcome{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:12px;margin:2px 1px 16px;
+}
+.eyebrow{
+  font-size:9px;text-transform:uppercase;letter-spacing:1.6px;
+  font-weight:900;color:var(--green);
+}
+.welcome h1{
+  margin:5px 0 4px;
+  font-size:clamp(24px,4vw,35px);
+  letter-spacing:-1.1px;line-height:1.05;
+}
+.welcome p{margin:0;color:var(--muted);font-size:10px}
+.account-link{
+  border:1px solid var(--line);background:#fff;
+  border-radius:12px;padding:9px 11px;
+  font-size:9px;font-weight:850;white-space:nowrap;
+}
 
-.section{margin-bottom:27px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:11px}.section-head h2{font-size:18px;letter-spacing:-.5px;margin:0}.section-head p{font-size:9px;color:var(--muted);margin:3px 0 0}.link-btn{border:0;background:transparent;color:var(--green);font-size:9px;font-weight:850}
-.h-scroll{display:flex;gap:11px;overflow:auto;scrollbar-width:none;padding:1px 1px 7px}.h-scroll::-webkit-scrollbar{display:none}
-.product{flex:0 0 174px;background:white;border:1px solid var(--line);border-radius:17px;overflow:hidden}.pic{height:145px;background:#f0f3ed;position:relative;display:grid;place-items:center}.pic img{width:100%;height:100%;object-fit:contain;background:white}.placeholder{font-size:38px;color:#9ba79f}.pill{position:absolute;left:7px;top:7px;padding:5px 7px;border-radius:999px;background:#183b31;color:white;font-size:8px;font-weight:900}.stock{position:absolute;right:7px;top:7px;padding:5px 7px;border-radius:999px;background:white;border:1px solid var(--line);font-size:8px;font-weight:850}
-.body{padding:11px}.pcat{font-size:8px;color:#8b958f;text-transform:uppercase;font-weight:800;letter-spacing:.6px}.ptitle{font-size:12px;font-weight:900;line-height:1.27;margin:3px 0 7px;min-height:31px}.prices{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}.price{font-size:17px;font-weight:950;color:var(--green)}.mrp{font-size:9px;color:#919b95;text-decoration:line-through}.profit-unit{font-size:9px;color:#b26c2b;font-weight:800;margin-top:2px}.meta{font-size:8px;color:#7c8982;margin-top:6px}.actions-row{display:flex;gap:6px;margin-top:9px}.add{flex:1;height:34px;border:0;border-radius:10px;background:var(--green);color:white;font-size:9px;font-weight:900}.more{width:34px;height:34px;border:1px solid var(--line);background:white;border-radius:10px}.stepper{display:grid;grid-template-columns:32px 1fr 32px;width:100%;height:34px;border:1px solid #b6ccbf;border-radius:10px;overflow:hidden}.stepper button{border:0;background:#eef5ef;color:var(--green);font-weight:950}.stepper strong{text-align:center;align-self:center;font-size:9px}
+/* compact business card */
+.business-card{
+  border-radius:23px;padding:20px;
+  background:linear-gradient(135deg,#123e31,#17634c 68%,#2d755d);
+  color:#fff;box-shadow:var(--shadow);
+  overflow:hidden;position:relative;
+}
+.business-card:after{
+  content:"";position:absolute;width:180px;height:180px;border-radius:50%;
+  right:-70px;top:-80px;background:rgba(223,242,168,.13)
+}
+.business-top{position:relative;z-index:2}
+.business-top span{font-size:9px;color:#d1e1d9;font-weight:800}
+.big-profit{
+  font-size:clamp(37px,8vw,56px);font-weight:950;
+  letter-spacing:-2px;line-height:1;margin:8px 0 5px;
+}
+.business-top p{margin:0;font-size:9px;color:#c9ddd3;line-height:1.45}
+.business-stats{
+  position:relative;z-index:2;
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:7px;margin-top:15px;
+}
+.stat{
+  min-width:0;padding:10px;border-radius:13px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.07);
+}
+.stat span{display:block;font-size:7px;color:#c8dcd2}
+.stat strong{
+  display:block;margin-top:3px;font-size:12px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.business-note{
+  position:relative;z-index:2;
+  margin-top:12px;font-size:8px;color:#c7d9d0;
+}
 
-.bulk-card{flex:0 0 245px;background:#fff7e8;border:1px solid #eedfc6;border-radius:17px;padding:14px}.bulk-card h3{font-size:12px;margin:0 0 2px}.bulk-card p{font-size:9px;color:#7f715f;margin:0}.deal{margin-top:10px;padding:10px;border-radius:12px;background:white}.deal strong{display:block;color:#87521f;font-size:14px}.deal span{font-size:8px;color:#877867}.bulk-card button{width:100%;margin-top:9px;height:34px;border:0;border-radius:10px;background:#443326;color:white;font-size:9px;font-weight:850}
+.categories{
+  display:flex;gap:8px;overflow:auto;scrollbar-width:none;
+  padding:1px 0 5px;margin:17px 0;
+}
+.categories::-webkit-scrollbar{display:none}
+.category{
+  flex:0 0 auto;border:1px solid var(--line);
+  background:#fff;color:#5d6b64;
+  border-radius:999px;padding:9px 14px;
+  font-size:9px;font-weight:850;
+}
+.category.active{
+  background:var(--ink);border-color:var(--ink);color:#fff;
+}
 
-.reorder{display:grid;grid-template-columns:54px minmax(0,1fr) auto;gap:10px;align-items:center;background:white;border:1px solid var(--line);border-radius:15px;padding:10px;margin-bottom:8px}.thumb{width:54px;height:54px;border-radius:12px;background:#f0f2ed;display:grid;place-items:center;overflow:hidden}.thumb img{width:100%;height:100%;object-fit:contain;background:white}.reorder strong{display:block;font-size:10px}.reorder span{display:block;font-size:8px;color:var(--muted);margin-top:2px}.reorder button{border:1px solid #aec6ba;background:#eff6ef;color:var(--green);border-radius:10px;padding:8px 9px;font-size:8px;font-weight:900}
+.section-head{
+  display:flex;align-items:end;justify-content:space-between;
+  gap:10px;margin:19px 1px 10px;
+}
+.section-head h2{font-size:18px;letter-spacing:-.5px;margin:0}
+.section-head p{margin:3px 0 0;color:var(--muted);font-size:9px}
+.product-count{
+  color:var(--muted);font-size:9px;font-weight:750;white-space:nowrap;
+}
 
-.order-card{background:white;border:1px solid var(--line);border-radius:17px;padding:13px;margin-bottom:8px}.order-top{display:flex;justify-content:space-between;gap:12px}.order-top strong{font-size:11px}.order-top span{font-size:9px;color:var(--muted)}.status-chip{display:inline-flex;margin-top:5px;padding:4px 7px;border-radius:999px;background:var(--green-soft);color:var(--green);font-size:8px;font-weight:850}.order-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:10px}.order-meta div{padding:8px;border-radius:10px;background:#f5f7f3}.order-meta span{display:block;font-size:7px;color:var(--muted)}.order-meta strong{display:block;font-size:10px;margin-top:2px}.order-actions{display:flex;gap:6px;margin-top:10px}.order-actions button{flex:1;height:32px;border-radius:9px;border:1px solid var(--line);background:white;font-size:8px;font-weight:850}.order-actions button.primary2{background:var(--green);color:white;border-color:var(--green)}
+/* app-style product feed */
+.products{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:9px;
+}
+.product-card{
+  background:#fff;border:1px solid var(--line);
+  border-radius:17px;padding:10px;
+  display:grid;
+  grid-template-columns:92px minmax(0,1fr) auto;
+  gap:11px;align-items:center;
+  transition:.18s;
+  cursor:pointer;
+}
+.product-card:hover{transform:translateY(-1px);box-shadow:0 9px 25px rgba(22,55,43,.06)}
+.product-image{
+  width:92px;height:92px;border-radius:13px;
+  background:#f0f3ed;overflow:hidden;
+  display:grid;place-items:center;
+  color:#98a49d;font-size:30px;
+}
+.product-image img{width:100%;height:100%;object-fit:contain;background:#fff}
+.product-copy{min-width:0}
+.product-category{
+  color:#8a968f;font-size:7px;font-weight:850;
+  text-transform:uppercase;letter-spacing:.6px;
+}
+.product-name{
+  font-size:12px;font-weight:900;line-height:1.25;
+  margin:3px 0 3px;
+}
+.product-desc{
+  color:var(--muted);font-size:8px;line-height:1.38;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+  overflow:hidden;min-height:22px;
+}
+.price-row{
+  display:flex;align-items:baseline;gap:7px;
+  margin-top:7px;flex-wrap:wrap;
+}
+.wholesale{font-size:16px;font-weight:950;color:var(--green)}
+.mrp{font-size:8px;color:#949e98;text-decoration:line-through}
+.profit-row{
+  display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin-top:3px;
+}
+.profit-chip{
+  display:inline-flex;padding:4px 7px;border-radius:999px;
+  background:var(--green-soft);color:var(--green);
+  font-size:7px;font-weight:900;
+}
+.margin-chip{
+  display:inline-flex;padding:4px 7px;border-radius:999px;
+  background:#fff0df;color:#9b5b20;
+  font-size:7px;font-weight:900;
+}
+.meta{
+  margin-top:5px;color:#8a958f;font-size:7px;
+}
+.open-arrow{
+  width:31px;height:31px;border-radius:10px;
+  background:#f2f5f1;color:var(--green);
+  display:grid;place-items:center;font-weight:950;
+}
 
-.empty,.error{background:white;border:1px solid var(--line);border-radius:17px;padding:22px;text-align:center;color:var(--muted);font-size:10px}.empty strong,.error strong{display:block;color:var(--ink);margin-bottom:5px;font-size:12px}.retry{margin-top:10px;border:0;background:var(--ink);color:white;border-radius:10px;padding:9px 12px;font-size:9px;font-weight:850}
-.search-results{position:absolute;top:49px;left:0;right:0;background:white;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:6px;z-index:70;max-height:330px;overflow:auto}.sr{display:flex;gap:9px;align-items:center;padding:8px;border-radius:10px}.sr:hover{background:#f5f7f3}.sr-img{width:40px;height:40px;border-radius:9px;background:#eef1eb;object-fit:contain}.sr strong{display:block;font-size:10px}.sr span{display:block;font-size:8px;color:var(--muted);margin-top:2px}
-.bottom-nav{position:fixed;z-index:60;left:50%;bottom:0;transform:translateX(-50%);width:min(700px,100%);height:calc(var(--nav) + env(safe-area-inset-bottom));padding:7px 11px calc(7px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(4,1fr);background:rgba(255,255,255,.97);backdrop-filter:blur(17px);border:1px solid var(--line);border-bottom:0;border-radius:21px 21px 0 0}.nav{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:#87928c;font-size:8px;font-weight:800;position:relative}.nav.active{background:var(--green-soft);color:var(--green);border-radius:12px}.nav i{font-style:normal;font-size:18px}
-.toast{position:fixed;z-index:100;left:50%;bottom:92px;transform:translate(-50%,15px);opacity:0;background:#17382e;color:white;padding:10px 13px;border-radius:12px;font-size:9px;transition:.2s;max-width:88vw;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}
-@media(min-width:600px){.brand-copy{display:block}.main{padding:23px}.insight-grid{grid-template-columns:repeat(4,1fr)}.product{flex-basis:200px}.pic{height:168px}}
-@media(min-width:900px){.topbar-inner{padding:12px 25px}.main{padding:28px 25px 50px}.hero-grid{grid-template-columns:1.05fr 1fr;align-items:center}.hero-bottom{grid-column:1/-1}.h-scroll.product-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));overflow:visible}.product{min-width:0;width:100%}.h-scroll.bulk-grid{display:grid;grid-template-columns:repeat(4,1fr);overflow:visible}.bulk-card{min-width:0}.bottom-nav{bottom:12px;border-radius:21px;border-bottom:1px solid var(--line)}.app{padding-bottom:108px}.toast{bottom:105px}}
+.empty,.error{
+  padding:24px;border-radius:17px;
+  border:1px solid var(--line);background:#fff;
+  text-align:center;color:var(--muted);font-size:9px;
+}
+.empty strong,.error strong{
+  display:block;color:var(--ink);font-size:12px;margin-bottom:5px;
+}
+.retry{
+  margin-top:10px;border:0;border-radius:10px;
+  padding:9px 12px;background:var(--ink);color:#fff;
+  font-size:9px;font-weight:850;
+}
+
+.bottom-nav{
+  position:fixed;z-index:60;left:50%;bottom:0;transform:translateX(-50%);
+  width:min(700px,100%);
+  height:76px;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  padding:7px 11px calc(7px + env(safe-area-inset-bottom));
+  background:rgba(255,255,255,.97);backdrop-filter:blur(17px);
+  border:1px solid var(--line);border-bottom:0;
+  border-radius:21px 21px 0 0;
+}
+.nav{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:2px;color:#88938d;font-size:8px;font-weight:800;position:relative;
+}
+.nav i{font-style:normal;font-size:18px}
+.nav.active{background:var(--green-soft);color:var(--green);border-radius:12px}
+
+.toast{
+  position:fixed;z-index:100;left:50%;bottom:91px;
+  transform:translate(-50%,15px);opacity:0;
+  max-width:88vw;padding:10px 13px;border-radius:12px;
+  background:#17382e;color:#fff;font-size:9px;transition:.2s;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media(min-width:560px){
+  .brand-copy{display:block}
+  .main{padding:22px}
+  .products{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(min-width:920px){
+  .topbar-inner{padding:10px 24px}
+  .main{padding:28px 24px 48px}
+  .products{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .product-card{
+    grid-template-columns:1fr;
+    padding:10px;
+    align-items:stretch;
+  }
+  .product-image{width:100%;height:185px}
+  .open-arrow{position:absolute;right:12px;bottom:12px}
+  .product-card{position:relative;padding-bottom:48px}
+  .bottom-nav{bottom:12px;border-radius:21px;border-bottom:1px solid var(--line)}
+  .app{padding-bottom:108px}
+  .toast{bottom:104px}
+}
 </style>
 </head>
 <body>
 <div class="app">
 <header class="topbar">
   <div class="shell topbar-inner">
-    <a class="brand" href="retailer-dashboard.html"><div class="logo">O</div><div class="brand-copy"><strong>ONeness</strong><small>Retailer wholesale</small></div></a>
+    <a class="brand" href="retailer-dashboard.html">
+      <div class="logo">O</div>
+      <div class="brand-copy"><strong>ONeness</strong><span>Retailer wholesale</span></div>
+    </a>
+
     <div class="search">
       <span class="search-icon">⌕</span>
-      <input id="searchInput" type="search" placeholder="Search products, categories or SKU">
-      <button class="clear" id="searchClear" hidden>×</button>
+      <input id="searchInput" type="search" placeholder="Search products or categories">
+      <button id="searchClear" class="clear" hidden>×</button>
       <div id="searchResults" class="search-results" hidden></div>
     </div>
-    <div class="actions">
-      <button class="icon-btn" id="notificationBtn">🔔<span class="badge" id="notificationCount" hidden>0</span></button>
+
+    <div class="header-actions">
       <button class="icon-btn" id="cartTop">🛒<span class="badge" id="cartTopCount" hidden>0</span></button>
     </div>
   </div>
 </header>
 
 <main class="shell main">
-  <section class="hello">
-    <div><div class="eyebrow">Retailer dashboard</div><h1 id="helloTitle">Welcome 👋</h1><p id="helloSub">Loading your business dashboard…</p></div>
-    <a class="account-chip" href="index.html" id="accountChip">Account →</a>
-  </section>
-
-  <section class="hero">
-    <div class="hero-grid">
-      <div class="hero-main">
-        <small>Potential retail profit · this month</small>
-        <div class="profit" id="monthProfit">₹0</div>
-        <div class="formula" id="profitFormula">Retail value ₹0 − Wholesale cost ₹0</div>
-        <div class="compare" id="monthCompare">Start ordering to build your margin</div>
-      </div>
-      <div class="hero-metrics">
-        <div class="metric"><span>Wholesale purchases</span><strong id="monthWholesale">₹0</strong></div>
-        <div class="metric"><span>MRP retail value</span><strong id="monthMrp">₹0</strong></div>
-        <div class="metric"><span>Potential margin</span><strong id="monthMargin">0%</strong></div>
-      </div>
-      <div class="hero-bottom"><span id="heroNote">Potential earnings use order values where MRP data is available.</span><button id="increaseMargin">Increase this month’s margin →</button></div>
+  <section class="welcome">
+    <div>
+      <div class="eyebrow">Retailer home</div>
+      <h1 id="helloTitle">Welcome 👋</h1>
+      <p id="helloSub">Browse wholesale products and potential margins.</p>
     </div>
+    <a id="accountLink" class="account-link" href="index.html">Account →</a>
   </section>
 
-  <section class="insight-grid">
-    <div class="insight"><span>Orders this month</span><strong id="ordersThisMonth">0</strong><small>Placed + fulfilled</small></div>
-    <div class="insight"><span>Units purchased</span><strong id="unitsThisMonth">0</strong><small>This month</small></div>
-    <div class="insight"><span>Avg order value</span><strong id="avgOrder">₹0</strong><small>This month</small></div>
-    <div class="insight"><span>Best margin product</span><strong id="bestProduct">—</strong><small id="bestProductHint">No product data</small></div>
+  <section class="business-card">
+    <div class="business-top">
+      <span>Potential retail profit · this month</span>
+      <div id="monthProfit" class="big-profit">₹0</div>
+      <p id="profitFormula">MRP retail value − wholesale purchase value</p>
+    </div>
+    <div class="business-stats">
+      <div class="stat"><span>Wholesale</span><strong id="monthWholesale">₹0</strong></div>
+      <div class="stat"><span>MRP value</span><strong id="monthMrp">₹0</strong></div>
+      <div class="stat"><span>Potential margin</span><strong id="monthMargin">0%</strong></div>
+    </div>
+    <div id="businessNote" class="business-note">Potential profit is an estimate and does not mean the stock has already been sold.</div>
   </section>
 
-  <div class="categories" id="categories"><button class="cat active" data-cat="">All</button></div>
+  <div id="categories" class="categories">
+    <button class="category active" data-category="">All</button>
+  </div>
 
-  <section class="promo" id="promo">
-    <div class="promo-copy"><div class="tag" id="promoEyebrow">Wholesale advantage</div><h2 id="promoTitle">Buy in smarter slabs.<br>Keep more margin.</h2><p id="promoSubtitle">Unlock better unit prices as your quantity increases.</p><button id="promoBtn">Explore bulk deals</button></div>
-    <div class="promo-art">📦</div>
-  </section>
-
-  <section class="section" id="bestMarginSection">
-    <div class="section-head"><div><h2>Best margin products</h2><p>Products with stronger potential profit per unit</p></div><button class="link-btn" data-scroll="allProductsSection">See all</button></div>
-    <div class="h-scroll product-grid" id="bestMargin"></div>
-  </section>
-
-  <section class="section" id="frequentSection">
-    <div class="section-head"><div><h2>Frequently ordered</h2><p>Your regular stock, ready to reorder</p></div></div>
-    <div id="frequentList"></div>
-  </section>
-
-  <section class="section" id="bulkSection">
-    <div class="section-head"><div><h2>Bulk deals</h2><p>Unlock lower unit prices at higher quantities</p></div></div>
-    <div class="h-scroll bulk-grid" id="bulkDeals"></div>
-  </section>
-
-  <section class="section" id="trendingSection">
-    <div class="section-head"><div><h2>Trending & best sellers</h2><p>Popular products based on your catalogue and order history</p></div></div>
-    <div class="h-scroll product-grid" id="trendingProducts"></div>
-  </section>
-
-  <section class="section" id="recommendedSection">
-    <div class="section-head"><div><h2>Recommended for you</h2><p>Higher-margin and category-relevant products</p></div></div>
-    <div class="h-scroll product-grid" id="recommendedProducts"></div>
-  </section>
-
-  <section class="section" id="newSection">
-    <div class="section-head"><div><h2>New arrivals</h2><p>Recently added active products</p></div></div>
-    <div class="h-scroll product-grid" id="newProducts"></div>
-  </section>
-
-  <section class="section" id="recentSection">
-    <div class="section-head"><div><h2>Recently viewed</h2><p>Products you opened recently on this device</p></div></div>
-    <div class="h-scroll product-grid" id="recentProducts"></div>
-  </section>
-
-  <section class="section" id="ordersSection">
-    <div class="section-head"><div><h2>Recent orders & reorder</h2><p>Your latest retailer purchases</p></div></div>
-    <div id="recentOrders"></div>
-  </section>
-
-  <section class="section" id="allProductsSection">
-    <div class="section-head"><div><h2>All products</h2><p id="productCount">Loading catalogue…</p></div></div>
-    <div class="h-scroll product-grid" id="allProducts"></div>
+  <section>
+    <div class="section-head">
+      <div>
+        <h2>Products</h2>
+        <p>Tap a product to view details, quantity pricing and order options.</p>
+      </div>
+      <div id="productCount" class="product-count">Loading…</div>
+    </div>
+    <div id="products" class="products"></div>
   </section>
 </main>
 
@@ -162,7 +387,8 @@ button,input{font:inherit}button{cursor:pointer}a{text-decoration:none;color:inh
   <a class="nav" href="cart.html"><i>🛒</i><span>Cart</span><span class="badge" id="cartNavCount" hidden>0</span></a>
   <a class="nav" href="index.html"><i>◯</i><span>Account</span></a>
 </nav>
-<div class="toast" id="toast"></div>
+
+<div id="toast" class="toast"></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
@@ -170,229 +396,371 @@ button,input{font:inherit}button{cursor:pointer}a{text-decoration:none;color:inh
 (()=>{
 'use strict';
 
-const URL='https://djnpsgtlzgebmjtxfpei.supabase.co';
-const KEY='sb_publishable_97Gyvl_3GC_4irWpbIg0uA_SXDXeWb6';
-const db=window.supabase.createClient(URL,KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storageKey:'oneness-retailer'}});
+const SUPABASE_URL='https://djnpsgtlzgebmjtxfpei.supabase.co';
+const SUPABASE_KEY='sb_publishable_97Gyvl_3GC_4irWpbIg0uA_SXDXeWb6';
+
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{
+  auth:{
+    persistSession:true,
+    autoRefreshToken:true,
+    detectSessionInUrl:true,
+    storageKey:'oneness-retailer'
+  }
+});
 
 const $=id=>document.getElementById(id);
-const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const money=p=>new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(Number(p||0)/100);
-const state={profile:null,products:[],categories:[],orders:[],selectedCat:'',search:'',cart:readCart(),recent:readRecent(),promo:null};
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({
+  '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+}[c]));
 
-function readCart(){try{const x=JSON.parse(localStorage.getItem('oneness-retailer-cart')||'[]');return Array.isArray(x)?x:[]}catch{return[]}}
-function readRecent(){try{const x=JSON.parse(localStorage.getItem('oneness-recent-products')||'[]');return Array.isArray(x)?x:[]}catch{return[]}}
-function saveCart(){localStorage.setItem('oneness-retailer-cart',JSON.stringify(state.cart));updateCartBadges()}
-function saveRecent(){localStorage.setItem('oneness-recent-products',JSON.stringify(state.recent.slice(0,12)))}
-function toast(t){const e=$('toast');e.textContent=t;e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),2400)}
-function greeting(){const h=new Date().getHours();return h<12?'Good morning':h<17?'Good afternoon':'Good evening'}
-function firstName(){return (state.profile?.name||'Retailer').trim().split(/\s+/)[0]||'Retailer'}
-function catName(id){return state.categories.find(c=>Number(c.id)===Number(id))?.name||'Wholesale'}
-function imageOf(p){return Array.isArray(p.images)&&p.images[0]?p.images[0]:''}
-function cartCount(){return state.cart.reduce((n,x)=>n+Number(x.qty||0),0)}
-function updateCartBadges(){const n=cartCount();for(const id of ['cartTopCount','cartNavCount']){const e=$(id);e.textContent=n>99?'99+':n;e.hidden=n===0}}
-function currentPrice(p,qty){let price=Number(p.price_paise||0);const rules=Array.isArray(p.bulk_rules)?p.bulk_rules.slice().sort((a,b)=>Number(a.min_qty)-Number(b.min_qty)):[];for(const r of rules)if(qty>=Number(r.min_qty||0))price=Number(r.price_paise||price);return price}
-function marginValue(p,qty=1){return Math.max(0,Number(p.mrp_paise||0)-currentPrice(p,Math.max(qty,Number(p.min_qty||1))))}
-function marginPct(p){const mrp=Number(p.mrp_paise||0);return mrp>0?Math.max(0,Math.round((mrp-Number(p.price_paise||0))*100/mrp)):0}
-function statusStock(p){const s=Number(p.stock||0),min=Number(p.min_qty||1);return s<min?'Out':s<Math.max(min*2,10)?'Low stock':'In stock'}
+const money=paise=>new Intl.NumberFormat('en-IN',{
+  style:'currency',currency:'INR',maximumFractionDigits:0
+}).format(Number(paise||0)/100);
 
-function normalizeItem(raw){
+const state={
+  profile:null,
+  products:[],
+  categories:[],
+  orders:[],
+  selectedCategory:'',
+  search:'',
+  cart:readCart()
+};
+
+function readCart(){
+  try{
+    const x=JSON.parse(localStorage.getItem('oneness-retailer-cart')||'[]');
+    return Array.isArray(x)?x:[];
+  }catch{return[]}
+}
+
+function cartCount(){
+  return state.cart.reduce((sum,item)=>sum+Number(item.qty||0),0);
+}
+
+function updateCartBadges(){
+  const count=cartCount();
+  for(const id of ['cartTopCount','cartNavCount']){
+    const el=$(id);
+    el.textContent=count>99?'99+':count;
+    el.hidden=count===0;
+  }
+}
+
+function greeting(){
+  const h=new Date().getHours();
+  return h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+}
+
+function firstName(){
+  return (state.profile?.name||'Retailer').trim().split(/\s+/)[0]||'Retailer';
+}
+
+function categoryName(id){
+  return state.categories.find(x=>Number(x.id)===Number(id))?.name||'Wholesale';
+}
+
+function imageOf(p){
+  return Array.isArray(p.images)&&p.images[0]?p.images[0]:'';
+}
+
+function baseProfit(p){
+  return Math.max(0,Number(p.mrp_paise||0)-Number(p.price_paise||0));
+}
+
+function marginPercent(p){
+  const mrp=Number(p.mrp_paise||0);
+  if(!mrp)return 0;
+  return Math.max(0,Math.round(baseProfit(p)*100/mrp));
+}
+
+function normalizeOrderItem(raw){
   if(!raw||typeof raw!=='object')return null;
   return {
-    product_id:Number(raw.product_id??raw.id??raw.productId??0),
     qty:Number(raw.qty??raw.quantity??0),
-    unit_price_paise:Number(raw.unit_price_paise??raw.price_paise??raw.unit_price??0),
     mrp_paise:Number(raw.mrp_paise??raw.mrp??0)
   };
 }
-function orderItems(o){
-  const r=o.reserved_items;
-  if(Array.isArray(r))return r.map(normalizeItem).filter(Boolean);
-  if(r&&Array.isArray(r.items))return r.items.map(normalizeItem).filter(Boolean);
+
+function orderItems(order){
+  const raw=order?.reserved_items;
+  if(Array.isArray(raw))return raw.map(normalizeOrderItem).filter(Boolean);
+  if(raw&&Array.isArray(raw.items))return raw.items.map(normalizeOrderItem).filter(Boolean);
   return [];
 }
-function cancelled(o){return ['cancelled','canceled','refunded'].includes(String(o.status||'').toLowerCase())}
-function orderMrp(o){
-  const items=orderItems(o);
+
+function orderMrp(order){
+  const items=orderItems(order);
   if(!items.length)return null;
   if(items.some(i=>!i.mrp_paise))return null;
-  return items.reduce((s,i)=>s+i.qty*i.mrp_paise,0);
+  return items.reduce((sum,i)=>sum+i.qty*i.mrp_paise,0);
 }
-function orderUnits(o){return orderItems(o).reduce((s,i)=>s+i.qty,0)}
 
-async function loadHome(){
-  const {data:{user},error}=await db.auth.getUser();
-  if(error||!user){location.replace('index.html');return}
-  const {data,error:rpcError}=await db.rpc('retailer_dashboard_home');
-  if(rpcError)throw rpcError;
+function cancelled(order){
+  return ['cancelled','canceled','refunded'].includes(String(order.status||'').toLowerCase());
+}
+
+function inCurrentMonth(order){
+  const d=new Date(order.created_at);
+  const now=new Date();
+  return d.getFullYear()===now.getFullYear()&&d.getMonth()===now.getMonth();
+}
+
+function shortDescription(p){
+  const text=String(p.description||'').trim();
+  if(text)return text;
+  return `${categoryName(p.category_id)} · ${p.unit||'unit'} · ${Number(p.stock||0)} in stock`;
+}
+
+function productCard(p){
+  const img=imageOf(p);
+  const unavailable=Number(p.stock||0)<Number(p.min_qty||1);
+
+  return `
+    <article class="product-card" data-product="${p.id}">
+      <div class="product-image">
+        ${img?`<img src="${esc(img)}" alt="${esc(p.title)}" loading="lazy">`:'◇'}
+      </div>
+
+      <div class="product-copy">
+        <div class="product-category">${esc(categoryName(p.category_id))}</div>
+        <div class="product-name">${esc(p.title)}</div>
+        <div class="product-desc">${esc(shortDescription(p))}</div>
+
+        <div class="price-row">
+          <span class="wholesale">${money(p.price_paise)}</span>
+          <span class="mrp">MRP ${money(p.mrp_paise)}</span>
+        </div>
+
+        <div class="profit-row">
+          <span class="profit-chip">Potential +${money(baseProfit(p))}/${esc(p.unit||'unit')}</span>
+          <span class="margin-chip">${marginPercent(p)}% margin</span>
+        </div>
+
+        <div class="meta">
+          ${unavailable?'Currently unavailable':`Min qty ${Number(p.min_qty||1)} · Stock ${Number(p.stock||0)}`}
+        </div>
+      </div>
+
+      <div class="open-arrow">›</div>
+    </article>
+  `;
+}
+
+function openProduct(id){
+  try{
+    const recent=JSON.parse(localStorage.getItem('oneness-recent-products')||'[]');
+    const arr=Array.isArray(recent)?recent:[];
+    const next=[id,...arr.filter(x=>Number(x)!==Number(id))].slice(0,12);
+    localStorage.setItem('oneness-recent-products',JSON.stringify(next));
+  }catch{}
+  location.href='product.html?id='+encodeURIComponent(id);
+}
+
+function renderProducts(){
+  let rows=state.products.slice();
+
+  if(state.selectedCategory){
+    rows=rows.filter(p=>String(p.category_id)===String(state.selectedCategory));
+  }
+
+  if(state.search){
+    const q=state.search.toLowerCase();
+    rows=rows.filter(p=>{
+      const text=`${p.title} ${p.description||''} ${categoryName(p.category_id)} ${p.id}`.toLowerCase();
+      return text.includes(q);
+    });
+  }
+
+  $('productCount').textContent=`${rows.length} product${rows.length===1?'':'s'}`;
+
+  if(!rows.length){
+    $('products').innerHTML=`
+      <div class="empty">
+        <strong>No matching products</strong>
+        Try another search or category.
+      </div>`;
+    return;
+  }
+
+  $('products').innerHTML=rows.map(productCard).join('');
+
+  for(const card of $('products').querySelectorAll('[data-product]')){
+    card.onclick=()=>openProduct(Number(card.dataset.product));
+  }
+}
+
+function renderCategories(){
+  $('categories').innerHTML=
+    `<button class="category ${state.selectedCategory===''?'active':''}" data-category="">All</button>`+
+    state.categories.map(c=>`
+      <button class="category ${String(state.selectedCategory)===String(c.id)?'active':''}" data-category="${esc(c.id)}">
+        ${esc(c.name)}
+      </button>`).join('');
+
+  for(const btn of $('categories').querySelectorAll('[data-category]')){
+    btn.onclick=()=>{
+      state.selectedCategory=btn.dataset.category;
+      renderCategories();
+      renderProducts();
+    };
+  }
+}
+
+function renderBusinessSummary(){
+  const orders=state.orders.filter(o=>!cancelled(o)&&inCurrentMonth(o));
+  const wholesale=orders.reduce((sum,o)=>sum+Number(o.total_paise||0),0);
+
+  const mrps=orders.map(orderMrp);
+  const exact=orders.length>0&&mrps.every(v=>v!==null);
+  const mrp=exact?mrps.reduce((sum,v)=>sum+v,0):null;
+
+  if(mrp===null){
+    $('monthProfit').textContent='—';
+    $('monthWholesale').textContent=money(wholesale);
+    $('monthMrp').textContent='Tracking';
+    $('monthMargin').textContent='—';
+    $('profitFormula').textContent=`Wholesale purchased ${money(wholesale)} this month`;
+    $('businessNote').textContent='Exact historical potential profit will appear once MRP is stored with every order item.';
+    return;
+  }
+
+  const profit=Math.max(0,mrp-wholesale);
+  const margin=mrp?profit*100/mrp:0;
+
+  $('monthProfit').textContent=money(profit);
+  $('monthWholesale').textContent=money(wholesale);
+  $('monthMrp').textContent=money(mrp);
+  $('monthMargin').textContent=margin.toFixed(1)+'%';
+  $('profitFormula').textContent=`MRP value ${money(mrp)} − wholesale ${money(wholesale)}`;
+  $('businessNote').textContent='Potential profit is an estimate based on purchased stock and does not mean those products have already been sold.';
+}
+
+function setupSearch(){
+  const input=$('searchInput');
+  const clear=$('searchClear');
+  const results=$('searchResults');
+
+  input.oninput=()=>{
+    state.search=input.value.trim();
+    clear.hidden=!state.search;
+    renderProducts();
+
+    if(!state.search){
+      results.hidden=true;
+      return;
+    }
+
+    const q=state.search.toLowerCase();
+    const matches=state.products.filter(p=>{
+      const text=`${p.title} ${p.description||''} ${categoryName(p.category_id)} ${p.id}`.toLowerCase();
+      return text.includes(q);
+    }).slice(0,6);
+
+    results.innerHTML=matches.length
+      ?matches.map(p=>`
+        <div class="search-row" data-search-product="${p.id}">
+          ${imageOf(p)
+            ?`<img class="search-thumb" src="${esc(imageOf(p))}" alt="">`
+            :`<div class="search-thumb"></div>`}
+          <div>
+            <strong>${esc(p.title)}</strong>
+            <span>${money(p.price_paise)} · Potential +${money(baseProfit(p))}/${esc(p.unit||'unit')}</span>
+          </div>
+        </div>`).join('')
+      :`<div class="search-row"><div><strong>No matching products</strong><span>Try another name or category.</span></div></div>`;
+
+    results.hidden=false;
+
+    for(const row of results.querySelectorAll('[data-search-product]')){
+      row.onclick=()=>openProduct(Number(row.dataset.searchProduct));
+    }
+  };
+
+  clear.onclick=()=>{
+    input.value='';
+    state.search='';
+    clear.hidden=true;
+    results.hidden=true;
+    renderProducts();
+    input.focus();
+  };
+
+  document.addEventListener('click',e=>{
+    if(!e.target.closest('.search'))results.hidden=true;
+  });
+}
+
+async function loadDashboard(){
+  const {data:{user},error:userError}=await db.auth.getUser();
+
+  if(userError||!user){
+    location.replace('index.html');
+    return;
+  }
+
+  const {data,error}=await db.rpc('retailer_dashboard_home');
+
+  if(error)throw error;
+
   if(data?.ok!==true){
-    if(data?.reason==='not_authenticated'){location.replace('index.html');return}
+    if(data?.reason==='not_authenticated'){
+      location.replace('index.html');
+      return;
+    }
+
     if(data?.reason==='not_retailer'){
       await db.auth.signOut({scope:'local'});
-      location.replace('index.html');return
+      location.replace('index.html');
+      return;
     }
-    if(data?.reason==='blocked'){renderError('Your retailer account is blocked. Please contact ONeness support.');return}
-    throw Error('Retailer profile unavailable.');
+
+    if(data?.reason==='blocked'){
+      throw Error('Your retailer account is blocked. Please contact ONeness.');
+    }
+
+    throw Error('Retailer account could not be opened.');
   }
+
   state.profile=data.profile||{};
   state.products=Array.isArray(data.products)?data.products:[];
   state.categories=Array.isArray(data.categories)?data.categories:[];
   state.orders=Array.isArray(data.orders)?data.orders:[];
-  state.promo=data.promo||null;
-  renderAll(data);
-}
-function renderAll(data){
+
   $('helloTitle').textContent=`${greeting()}, ${firstName()} 👋`;
-  $('helloSub').textContent=state.profile.business_name?`Stock ${state.profile.business_name} smarter and grow your margin.`:'Buy smarter. Grow every margin.';
-  $('accountChip').textContent=(state.profile.business_name||'Account')+' →';
-  $('notificationCount').textContent=Number(data.notification_unread||0);$('notificationCount').hidden=!Number(data.notification_unread||0);
-  renderBusiness();
+  $('helloSub').textContent=state.profile.business_name
+    ?`Browse wholesale products for ${state.profile.business_name}.`
+    :'Browse wholesale products and potential margins.';
+
+  $('accountLink').textContent=(state.profile.business_name||'Account')+' →';
+
+  renderBusinessSummary();
   renderCategories();
-  renderPromo();
-  renderSections();
+  renderProducts();
   updateCartBadges();
 }
-function monthBounds(offset=0){
-  const d=new Date();d.setDate(1);d.setHours(0,0,0,0);d.setMonth(d.getMonth()+offset);
-  const n=new Date(d);n.setMonth(n.getMonth()+1);return [d,n]
+
+function showError(message){
+  $('products').innerHTML=`
+    <div class="error">
+      <strong>Could not open the retailer home</strong>
+      ${esc(message)}
+      <br>
+      <button class="retry" onclick="location.reload()">Retry</button>
+    </div>`;
+  $('productCount').textContent='Unavailable';
 }
-function inMonth(o,offset=0){const [a,b]=monthBounds(offset),d=new Date(o.created_at);return d>=a&&d<b}
-function renderBusiness(){
-  const current=state.orders.filter(o=>!cancelled(o)&&inMonth(o,0));
-  const prev=state.orders.filter(o=>!cancelled(o)&&inMonth(o,-1));
-  const wholesale=current.reduce((s,o)=>s+Number(o.total_paise||0),0);
-  const mrpKnown=current.map(orderMrp);
-  const exact=current.length>0&&mrpKnown.every(v=>v!==null);
-  const mrp=exact?mrpKnown.reduce((s,v)=>s+v,0):null;
-  const profit=mrp===null?null:Math.max(0,mrp-wholesale);
-  const margin=mrp?profit*100/mrp:0;
-  $('monthWholesale').textContent=money(wholesale);
-  $('monthMrp').textContent=mrp===null?'Tracking soon':money(mrp);
-  $('monthProfit').textContent=profit===null?'—':money(profit);
-  $('monthMargin').textContent=mrp===null?'—':margin.toFixed(1)+'%';
-  $('profitFormula').textContent=mrp===null?`Wholesale cost ${money(wholesale)} · exact MRP history needs MRP snapshots on orders`:`Retail value ${money(mrp)} − Wholesale cost ${money(wholesale)}`;
-  $('heroNote').textContent=mrp===null?'Exact historical potential profit will appear once MRP snapshots are stored with order items.':'Potential earnings are based on the MRP saved with order items.';
-  if(profit!==null){
-    const pwh=prev.reduce((s,o)=>s+Number(o.total_paise||0),0);
-    const pmrps=prev.map(orderMrp),pexact=prev.length&&pmrps.every(v=>v!==null);
-    if(pexact){const pp=Math.max(0,pmrps.reduce((s,v)=>s+v,0)-pwh),diff=profit-pp;$('monthCompare').textContent=(diff>=0?'↑ ':'↓ ')+money(Math.abs(diff))+(diff>=0?' more':' less')+' than last month'}
-    else $('monthCompare').textContent='Potential profit this month';
-  }
-  $('ordersThisMonth').textContent=current.length;
-  $('unitsThisMonth').textContent=current.reduce((s,o)=>s+orderUnits(o),0);
-  $('avgOrder').textContent=money(current.length?Math.round(wholesale/current.length):0);
-  const best=state.products.slice().sort((a,b)=>marginValue(b)-marginValue(a))[0];
-  $('bestProduct').textContent=best?best.title:'—';
-  $('bestProductHint').textContent=best?`${money(marginValue(best))} potential / ${best.unit||'unit'}`:'No product data';
-}
-function renderCategories(){
-  $('categories').innerHTML=`<button class="cat ${state.selectedCat===''?'active':''}" data-cat="">All</button>`+state.categories.map(c=>`<button class="cat ${String(state.selectedCat)===String(c.id)?'active':''}" data-cat="${esc(c.id)}">${esc(c.name)}</button>`).join('');
-  for(const b of $('categories').querySelectorAll('[data-cat]'))b.onclick=()=>{state.selectedCat=b.dataset.cat;renderCategories();renderAllProducts();$('allProductsSection').scrollIntoView({behavior:'smooth'})}
-}
-function renderPromo(){
-  const p=state.promo||{};$('promo').hidden=p.enabled===false;
-  $('promoEyebrow').textContent=p.eyebrow||'Wholesale advantage';
-  $('promoTitle').innerHTML=esc(p.title||'Buy in smarter slabs. Keep more margin.').replace('. ','.<br>');
-  $('promoSubtitle').textContent=p.subtitle||'Unlock better unit prices as your quantity increases.';
-  $('promoBtn').textContent=p.cta||'Explore bulk deals';
-}
-function productCard(p){
-  const row=state.cart.find(x=>x.product_id===Number(p.id)),qty=row?.qty||0,out=Number(p.stock||0)<Number(p.min_qty||1),img=imageOf(p);
-  return `<article class="product" data-product="${p.id}">
-    <div class="pic">${img?`<img src="${esc(img)}" alt="${esc(p.title)}" loading="lazy">`:'<div class="placeholder">◇</div>'}
-      <span class="pill">${marginPct(p)}% margin</span><span class="stock">${statusStock(p)}</span>
-    </div>
-    <div class="body"><div class="pcat">${esc(catName(p.category_id))}</div><div class="ptitle">${esc(p.title)}</div>
-      <div class="prices"><span class="price">${money(p.price_paise)}</span><span class="mrp">${money(p.mrp_paise)}</span></div>
-      <div class="profit-unit">Potential ${money(marginValue(p))} / ${esc(p.unit||'unit')}</div>
-      <div class="meta">Min ${Number(p.min_qty||1)} · Step ${Number(p.qty_step||1)} · Stock ${Number(p.stock||0)}</div>
-      <div class="actions-row">${qty?`<div class="stepper"><button data-minus="${p.id}">−</button><strong>${qty}</strong><button data-plus="${p.id}">+</button></div>`:`<button class="add" data-add="${p.id}" ${out?'disabled':''}>${out?'Out of stock':'+ Add'}</button><button class="more" data-open="${p.id}">›</button>`}</div>
-    </div></article>`
-}
-function wireProducts(root){
-  for(const b of root.querySelectorAll('[data-add]'))b.onclick=e=>{e.stopPropagation();addProduct(Number(b.dataset.add))}
-  for(const b of root.querySelectorAll('[data-plus]'))b.onclick=e=>{e.stopPropagation();changeQty(Number(b.dataset.plus),1)}
-  for(const b of root.querySelectorAll('[data-minus]'))b.onclick=e=>{e.stopPropagation();changeQty(Number(b.dataset.minus),-1)}
-  for(const b of root.querySelectorAll('[data-open]'))b.onclick=e=>{e.stopPropagation();openProduct(Number(b.dataset.open))}
-  for(const c of root.querySelectorAll('[data-product]'))c.onclick=e=>{if(e.target.closest('button'))return;openProduct(Number(c.dataset.product))}
-}
-function openProduct(id){
-  state.recent=[id,...state.recent.filter(x=>Number(x)!==id)];saveRecent();location.href='product.html?id='+encodeURIComponent(id)
-}
-function addProduct(id,forcedQty=null){
-  const p=state.products.find(x=>Number(x.id)===id);if(!p)return;
-  const min=Math.max(1,Number(p.min_qty||1)),step=Math.max(1,Number(p.qty_step||1)),stock=Number(p.stock||0);
-  if(stock<min)return toast('Not enough stock for the minimum order quantity.');
-  const r=state.cart.find(x=>x.product_id===id);
-  if(r)r.qty=Math.min(stock,forcedQty??(r.qty+step));else state.cart.push({product_id:id,qty:Math.min(stock,forcedQty??min)});
-  saveCart();renderSections();toast(`${p.title} added to cart`);
-}
-function changeQty(id,dir){
-  const p=state.products.find(x=>Number(x.id)===id),r=state.cart.find(x=>x.product_id===id);if(!p||!r)return;
-  const min=Math.max(1,Number(p.min_qty||1)),step=Math.max(1,Number(p.qty_step||1)),stock=Number(p.stock||0);let next=r.qty+dir*step;
-  if(next<min)state.cart=state.cart.filter(x=>x!==r);else r.qty=Math.min(stock,next);
-  saveCart();renderSections();
-}
-function rowsOf(ids,rows){
-  const e=$(ids);if(!rows.length){e.innerHTML='<div class="empty" style="min-width:100%"><strong>Nothing here yet</strong>This section will populate automatically as your catalogue and order history grow.</div>';return}
-  e.innerHTML=rows.slice(0,10).map(productCard).join('');wireProducts(e)
-}
-function renderFrequent(){
-  const counts=new Map();
-  for(const o of state.orders.filter(o=>!cancelled(o)))for(const i of orderItems(o))counts.set(i.product_id,(counts.get(i.product_id)||0)+i.qty);
-  const rows=[...counts.entries()].sort((a,b)=>b[1]-a[1]).map(([id])=>state.products.find(p=>Number(p.id)===Number(id))).filter(Boolean).slice(0,4);
-  if(!rows.length){$('frequentSection').hidden=true;return}$('frequentSection').hidden=false;
-  $('frequentList').innerHTML=rows.map(p=>`<div class="reorder"><div class="thumb">${imageOf(p)?`<img src="${esc(imageOf(p))}" alt="">`:'◇'}</div><div><strong>${esc(p.title)}</strong><span>${money(p.price_paise)} wholesale · ${money(marginValue(p))} potential/${esc(p.unit||'unit')}</span></div><button data-reorder="${p.id}">Reorder</button></div>`).join('');
-  for(const b of $('frequentList').querySelectorAll('[data-reorder]'))b.onclick=()=>addProduct(Number(b.dataset.reorder))
-}
-function renderBulk(){
-  const rows=state.products.filter(p=>Array.isArray(p.bulk_rules)&&p.bulk_rules.length);
-  if(!rows.length){$('bulkSection').hidden=true;return}$('bulkSection').hidden=false;
-  $('bulkDeals').innerHTML=rows.map(p=>{const rules=p.bulk_rules.slice().sort((a,b)=>Number(a.min_qty)-Number(b.min_qty)),best=rules.at(-1),save=Math.max(0,Number(p.price_paise)-Number(best.price_paise));return `<article class="bulk-card"><h3>${esc(p.title)}</h3><p>Base ${money(p.price_paise)} / ${esc(p.unit||'unit')}</p><div class="deal"><strong>${Number(best.min_qty)}+ at ${money(best.price_paise)}</strong><span>Save ${money(save)} per unit vs base wholesale price</span></div><button data-bulk="${p.id}" data-qty="${Number(best.min_qty)}">Add bulk quantity</button></article>`}).join('');
-  for(const b of $('bulkDeals').querySelectorAll('[data-bulk]'))b.onclick=()=>addProduct(Number(b.dataset.bulk),Number(b.dataset.qty))
-}
-function renderRecentOrders(){
-  const rows=state.orders.slice(0,5);if(!rows.length){$('ordersSection').hidden=false;$('recentOrders').innerHTML='<div class="empty"><strong>No orders yet</strong>Your recent orders and one-tap reorder will appear here.</div>';return}
-  $('recentOrders').innerHTML=rows.map(o=>{const mrp=orderMrp(o),profit=mrp===null?null:Math.max(0,mrp-Number(o.total_paise||0)),units=orderUnits(o);return `<article class="order-card"><div class="order-top"><div><strong>Order #ON${o.id}</strong><span>${new Date(o.created_at).toLocaleDateString('en-IN')}</span><div class="status-chip">${esc(o.status||'Placed')}</div></div><span>${units} units</span></div><div class="order-meta"><div><span>Wholesale</span><strong>${money(o.total_paise)}</strong></div><div><span>MRP value</span><strong>${mrp===null?'—':money(mrp)}</strong></div><div><span>Potential profit</span><strong>${profit===null?'—':money(profit)}</strong></div></div><div class="order-actions"><button data-vieworder="${o.id}">View order</button><button class="primary2" data-reorderorder="${o.id}">Reorder</button></div></article>`}).join('');
-  for(const b of $('recentOrders').querySelectorAll('[data-vieworder]'))b.onclick=()=>{location.href='index.html#orders'};
-  for(const b of $('recentOrders').querySelectorAll('[data-reorderorder]'))b.onclick=()=>reorderOrder(Number(b.dataset.reorderorder))
-}
-function reorderOrder(id){
-  const o=state.orders.find(x=>Number(x.id)===id);if(!o)return;
-  let added=0;
-  for(const i of orderItems(o)){const p=state.products.find(x=>Number(x.id)===Number(i.product_id));if(!p)continue;const qty=Math.max(Number(p.min_qty||1),Math.min(Number(p.stock||0),Number(i.qty||0)));if(qty>=Number(p.min_qty||1)){const r=state.cart.find(x=>x.product_id===Number(p.id));if(r)r.qty=Math.max(r.qty,qty);else state.cart.push({product_id:Number(p.id),qty});added++}}
-  saveCart();renderSections();toast(added?`${added} products added from the previous order.`:'No reorderable items are currently available.')
-}
-function renderAllProducts(){
-  let rows=state.products.filter(p=>!state.selectedCat||String(p.category_id)===String(state.selectedCat));
-  if(state.search){const q=state.search.toLowerCase();rows=rows.filter(p=>(`${p.title} ${p.description||''} ${catName(p.category_id)} ${p.id}`).toLowerCase().includes(q))}
-  $('productCount').textContent=`${rows.length} product${rows.length===1?'':'s'} available`;rowsOf('allProducts',rows)
-}
-function renderSections(){
-  const best=state.products.slice().sort((a,b)=>marginValue(b)-marginValue(a));
-  rowsOf('bestMargin',best);
-  renderFrequent();renderBulk();
-  const counts=new Map();for(const o of state.orders.filter(o=>!cancelled(o)))for(const i of orderItems(o))counts.set(i.product_id,(counts.get(i.product_id)||0)+i.qty);
-  const trending=state.products.slice().sort((a,b)=>(counts.get(Number(b.id))||0)-(counts.get(Number(a.id))||0)||marginValue(b)-marginValue(a));
-  rowsOf('trendingProducts',trending);
-  const boughtCats=new Map();for(const o of state.orders.filter(o=>!cancelled(o)))for(const i of orderItems(o)){const p=state.products.find(x=>Number(x.id)===Number(i.product_id));if(p)boughtCats.set(Number(p.category_id),(boughtCats.get(Number(p.category_id))||0)+i.qty)}
-  const recommended=state.products.slice().sort((a,b)=>(boughtCats.get(Number(b.category_id))||0)-(boughtCats.get(Number(a.category_id))||0)||marginValue(b)-marginValue(a));
-  rowsOf('recommendedProducts',recommended);
-  rowsOf('newProducts',state.products.slice().sort((a,b)=>new Date(b.created_at)-new Date(a.created_at)));
-  const recent=state.recent.map(id=>state.products.find(p=>Number(p.id)===Number(id))).filter(Boolean);if(!recent.length)$('recentSection').hidden=true;else{$('recentSection').hidden=false;rowsOf('recentProducts',recent)}
-  renderRecentOrders();renderAllProducts()
-}
-function renderError(msg){$('allProducts').innerHTML=`<div class="error" style="min-width:100%"><strong>Could not open retailer dashboard</strong>${esc(msg)}<br><button class="retry" onclick="location.reload()">Retry</button></div>`}
-function setupSearch(){
-  const input=$('searchInput'),box=$('searchResults'),clear=$('searchClear');
-  input.oninput=()=>{state.search=input.value.trim();clear.hidden=!state.search;renderAllProducts();if(!state.search){box.hidden=true;return}const q=state.search.toLowerCase(),rows=state.products.filter(p=>(`${p.title} ${p.description||''} ${catName(p.category_id)} ${p.id}`).toLowerCase().includes(q)).slice(0,7);box.innerHTML=rows.length?rows.map(p=>`<div class="sr" data-sr="${p.id}">${imageOf(p)?`<img class="sr-img" src="${esc(imageOf(p))}" alt="">`:'<div class="sr-img"></div>'}<div><strong>${esc(p.title)}</strong><span>${money(p.price_paise)} wholesale · ${money(marginValue(p))} potential/unit</span></div></div>`).join(''):'<div class="sr"><div><strong>No matching products</strong><span>Try another product or category.</span></div></div>';box.hidden=false;for(const r of box.querySelectorAll('[data-sr]'))r.onclick=()=>openProduct(Number(r.dataset.sr))};
-  clear.onclick=()=>{input.value='';state.search='';clear.hidden=true;box.hidden=true;renderAllProducts();input.focus()};document.addEventListener('click',e=>{if(!e.target.closest('.search'))box.hidden=true})
-}
+
 $('cartTop').onclick=()=>location.href='cart.html';
-$('notificationBtn').onclick=()=>toast('No unread notifications right now.');
-$('increaseMargin').onclick=()=>$('bestMarginSection').scrollIntoView({behavior:'smooth'});
-$('promoBtn').onclick=()=>$('bulkSection').scrollIntoView({behavior:'smooth'});
-for(const b of document.querySelectorAll('[data-scroll]'))b.onclick=()=>$(b.dataset.scroll)?.scrollIntoView({behavior:'smooth'});
-setupSearch();updateCartBadges();loadHome().catch(e=>{console.error(e);renderError(e.message||'Unexpected error')});
+
+setupSearch();
+updateCartBadges();
+
+loadDashboard().catch(err=>{
+  console.error(err);
+  showError(err?.message||'Unexpected error');
+});
+
 })();
 </script>
 </body>
