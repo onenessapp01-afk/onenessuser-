@@ -558,8 +558,9 @@ async function login(e){
     if(!data.user)throw Error('Could not confirm this account.');
     const p=await fetchAccount();
     if(p.role&&p.role!=='retailer')throw Error('This is not a retailer account.');
+    
     // Redirect to home dashboard upon successful login
-    location.href='retailer-dashboard.html';
+    window.location.href = 'retailer-dashboard.html';
   }catch(err){message(err.code==='not_retailer'||err.code==='NOT_RETAILER'||err.message.includes('admin portal')?'This email belongs to the ONeness admin portal. Retailer accounts must use a separate retailer login.':friendly(err),true)}
   finally{setBusy(false)}
 }
@@ -643,7 +644,7 @@ async function verifyOtp(e){
     if(purpose==='recovery'){recoverySession=true;renderReset()}
     else{
       // Redirect to home dashboard upon successful OTP signup verification
-      location.href='retailer-dashboard.html';
+      window.location.href = 'retailer-dashboard.html';
     }
   }catch(err){
     message(err?.code==='otp_expired'?'That OTP is invalid, expired, or from an older email. Tap Resend OTP and use only the newest code.':friendly(err),true);
@@ -796,8 +797,9 @@ async function boot(){
   if(user){
     try{
       const p=await fetchAccount();
-      // Only render account instead of redirecting here so direct visits to the account page still work.
-      renderAccount(p);
+      
+      // Aggressive redirect: Immediately send logged-in users to the dashboard.
+      window.location.href = 'retailer-dashboard.html';
       return;
     }
     catch(err){
